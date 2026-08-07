@@ -1,0 +1,47 @@
+name: JPX ETF data integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile
+        run: python -m compileall scripts tests
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Build API
+        run: python scripts/build_jpx_api.py
+      - name: Smoke test committed distributions
+        run: |
+          python - <<'PY'
+          import csv, hashlib, json
+          from pathlib import Path
+          root = Path('api/v1')
+          manifest = json.loads((root / 'manifest.json').read_text())
+          listings = json.loads((root / 'listings.json').read_text())
+          with (root / 'listings.csv').open(newline='', encoding='utf-8') as f:
+              rows = list(csv.DictReader(f))
+          assert manifest['record_count'] == listings['count'] == len(rows) == 7
+          assert len({row['code'] for row in listings['records']}) == 7
+          for name, meta in manifest['distributions'].items():
+              payload = (root / name).read_bytes()
+              assert len(payload) == meta['bytes']
+              assert hashlib.sha256(payload).hexdigest() == meta['sha256']
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jpx-etf-api-v1
+          path: api/v1
+          retention-days: 30

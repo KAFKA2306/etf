@@ -1,0 +1,8 @@
+listing_date,code,fund_name,index_name,management_company,trading_unit,trust_fee_percent,indicative_nav,active_etf
+2026-07-09,600A,Nissay ETF Russell 2000,Russell 2000 Net Total Return Index,Nissay Asset Management,1,0.432,True,False
+2026-07-14,605A,NEXT FUNDS Japan Equity Policy Focus Exchange Traded Fund,,Nomura Asset Management,10,0.475,True,True
+2026-07-21,608A,Listed Index Fund TSE REIT High Yield 30,Tokyo Stock Exchange REIT High Yield 30 Index,Amova Asset Management,1,0.132,True,False
+2026-07-30,609A,Global X Japan Wholesale Trade & Resource Business ETF,Mirae Asset Japan Wholesale Trade & Resource Business Index,Global X Japan,1,0.649,True,False
+2026-07-30,610A,Global X Space Tech Top 10 ETF (ex-Japan),Mirae Asset Space Tech Top 10 ex-Japan Index,Global X Japan,1,0.704,False,False
+2026-07-31,611A,One ETF Japanese Government Bond 27-30 years,,Asset Management One,10,0.095,True,True
+2026-08-03,613A,iFreeETF German Government 0-3 Month Bill,Solactive German Government 0-3 Month Bill Index,Daiwa Asset Management,1,0.14,True,False

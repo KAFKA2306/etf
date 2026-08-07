@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "JPX ETF new listings 2026",
+  "publisher": "Japan Exchange Group, Inc.",
+  "source_url": "https://www.jpx.co.jp/english/equities/products/etfs/issues/index.html",
+  "retrieved_at": "2026-08-08T06:25:00+09:00",
+  "rights": {
+    "notice": "Facts transcribed from the JPX listed issues page. Refer to JPX terms of use for reuse conditions.",
+    "terms_url": "https://www.jpx.co.jp/english/terms-of-use/index.html"
+  },
+  "selection": {
+    "scope": "ETF listings from 2026-07-09 through 2026-08-03 visible on the official annual new-listings page at retrieval time",
+    "record_count": 7
+  },
+  "records": [
+    {
+      "listing_date": "2026-07-09",
+      "code": "600A",
+      "fund_name": "Nissay ETF Russell 2000",
+      "index_name": "Russell 2000 Net Total Return Index",
+      "management_company": "Nissay Asset Management",
+      "trading_unit": 1,
+      "trust_fee_percent": 0.432,
+      "indicative_nav": true,
+      "active_etf": false
+    },
+    {
+      "listing_date": "2026-07-14",
+      "code": "605A",
+      "fund_name": "NEXT FUNDS Japan Equity Policy Focus Exchange Traded Fund",
+      "index_name": null,
+      "management_company": "Nomura Asset Management",
+      "trading_unit": 10,
+      "trust_fee_percent": 0.475,
+      "indicative_nav": true,
+      "active_etf": true
+    },
+    {
+      "listing_date": "2026-07-21",
+      "code": "608A",
+      "fund_name": "Listed Index Fund TSE REIT High Yield 30",
+      "index_name": "Tokyo Stock Exchange REIT High Yield 30 Index",
+      "management_company": "Amova Asset Management",
+      "trading_unit": 1,
+      "trust_fee_percent": 0.132,
+      "indicative_nav": true,
+      "active_etf": false
+    },
+    {
+      "listing_date": "2026-07-30",
+      "code": "609A",
+      "fund_name": "Global X Japan Wholesale Trade & Resource Business ETF",
+      "index_name": "Mirae Asset Japan Wholesale Trade & Resource Business Index",
+      "management_company": "Global X Japan",
+      "trading_unit": 1,
+      "trust_fee_percent": 0.649,
+      "indicative_nav": true,
+      "active_etf": false
+    },
+    {
+      "listing_date": "2026-07-30",
+      "code": "610A",
+      "fund_name": "Global X Space Tech Top 10 ETF (ex-Japan)",
+      "index_name": "Mirae Asset Space Tech Top 10 ex-Japan Index",
+      "management_company": "Global X Japan",
+      "trading_unit": 1,
+      "trust_fee_percent": 0.704,
+      "indicative_nav": false,
+      "active_etf": false
+    },
+    {
+      "listing_date": "2026-07-31",
+      "code": "611A",
+      "fund_name": "One ETF Japanese Government Bond 27-30 years",
+      "index_name": null,
+      "management_company": "Asset Management One",
+      "trading_unit": 10,
+      "trust_fee_percent": 0.095,
+      "indicative_nav": true,
+      "active_etf": true
+    },
+    {
+      "listing_date": "2026-08-03",
+      "code": "613A",
+      "fund_name": "iFreeETF German Government 0-3 Month Bill",
+      "index_name": "Solactive German Government 0-3 Month Bill Index",
+      "management_company": "Daiwa Asset Management",
+      "trading_unit": 1,
+      "trust_fee_percent": 0.14,
+      "indicative_nav": true,
+      "active_etf": false
+    }
+  ]
+}
