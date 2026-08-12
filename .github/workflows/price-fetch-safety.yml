@@ -7,6 +7,7 @@ on:
       - "data/ticker-universe.json"
       - "tests/test_fetch_safety.py"
       - ".github/workflows/price-fetch-safety.yml"
+      - "*.pkl"
   push:
     branches: [main]
     paths:
@@ -14,6 +15,7 @@ on:
       - "data/ticker-universe.json"
       - "tests/test_fetch_safety.py"
       - ".github/workflows/price-fetch-safety.yml"
+      - "*.pkl"
   workflow_dispatch:
 
 permissions:
@@ -39,6 +41,11 @@ jobs:
           set -euo pipefail
           ! grep -nE 'C:\\Users\\|pickle\.load|pickle\.dump|date\.today\(' fetch.py
           grep -q 'if __name__ == "__main__"' fetch.py
+          if find . -maxdepth 1 -type f -name '*.pkl' -print -quit | grep -q .; then
+            echo 'Root-level pickle artifacts are forbidden; use the auditable JSON snapshot path instead.' >&2
+            find . -maxdepth 1 -type f -name '*.pkl' -print >&2
+            exit 1
+          fi
           python - <<'PY'
           import json
           from pathlib import Path
