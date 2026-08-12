@@ -1,0 +1,26 @@
+{
+  "schema_version": "etf.ticker-universe.v1",
+  "provenance": {
+    "source": "legacy hard-coded symbols from fetch.py",
+    "source_url": "https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py",
+    "verification_status": "not_independently_verified"
+  },
+  "tickers": [
+    {"symbol":"FEPI","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"PSI","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"SHOC","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"FTXL","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"CHPS","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"EMSF","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"SOXQ","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"SOXX","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"SMH","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"SEMI","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"FFND","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"IGPT","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"XSD","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"ARVR","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"LOUP","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null},
+    {"symbol":"XNTK","exchange":null,"currency":null,"fund_name":null,"active_status":"unknown","source_url":"https://github.com/KAFKA2306/etf/blob/979733225fe961b56f408dc105a38908b38d760f/fetch.py","verified_at":null}
+  ]
+}
