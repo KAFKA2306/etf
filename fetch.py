@@ -1,57 +1,192 @@
-import yfinance as yf
-import pandas as pd
-import datetime
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import hashlib
+import json
 import os
-import pickle 
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Protocol
 
-# ETFのティッカーリスト
-etfs = ["FEPI", "PSI", "SHOC", "FTXL", "CHPS", "EMSF", "SOXQ", "SOXX", "SMH", "SEMI", "FFND", "IGPT", "XSD", "ARVR", "LOUP", "XNTK"]
-# 確認のために保存したリストを読み込む
+ROOT = Path(__file__).resolve().parent
+DEFAULT_UNIVERSE = ROOT / "data" / "ticker-universe.json"
+DEFAULT_OUTPUT = ROOT / "data" / "prices" / "current.json"
+SCHEMA_VERSION = "etf.weekly-prices.v1"
 
-with open(r'C:\Users\100ca\Documents\PyCode\etf\code\tickers.pkl', 'rb') as file:
-    etfs = pickle.load(file)
 
-# キャッシュファイルのパスをpickle用に変更
-cache_path = fr"C:\Users\100ca\Documents\PyCode\etf\data\etf_weekly_close_cache.pkl"
+class FetchError(RuntimeError):
+    """Raised when a complete, auditable price snapshot cannot be produced."""
 
-def load_cache():
-    if os.path.exists(cache_path):
-        with open(cache_path, "rb") as file:  # Changed to binary read mode
-            return pickle.load(file)
-    return {}
 
-def save_cache(cache):
-    with open(cache_path, "wb") as file:  # Changed to binary write mode
-        pickle.dump(cache, file)
+class Provider(Protocol):
+    name: str
 
-def get_last_friday():
-    today = datetime.date.today()
-    last_friday = today - datetime.timedelta(days=(today.weekday() + 3) % 7)
-    return last_friday
+    def weekly_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]: ...
 
-def fetch_weekly_close(etf):
-    # 5年前の日付を計算
-    start_date = (datetime.date.today() - datetime.timedelta(days=5*365)).strftime("%Y-%m-%d")
-    # 現在の日付
-    end_date = datetime.date.today().strftime("%Y-%m-%d")
-    
-    data = yf.download(etf, start=start_date, end=end_date, interval="1wk")
-    # 終値と日付の列を返す
-    return data["Close"].reset_index()
 
-def update_weekly_closes(etfs):
-    cache = load_cache()
-    for etf in etfs:
+@dataclass(frozen=True)
+class Ticker:
+    symbol: str
+    exchange: str
+    currency: str
+    fund_name: str
+    active_status: str
+    source_url: str
+    verified_at: str
+
+
+class YFinanceProvider:
+    name = "yfinance"
+
+    def weekly_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]:
         try:
-            data = fetch_weekly_close(etf)
-            # 日付と終値をリストとして保存
-            cache[etf] = data.to_dict('records')
-        except Exception as e:
-            print(f"Error fetching data for {etf}: {e}")
-    
-    save_cache(cache)
-    return cache
+            import yfinance as yf  # type: ignore
+        except ImportError as exc:
+            raise FetchError("live fetch requires yfinance; install the project dependencies first") from exc
+        frame = yf.download(
+            symbol,
+            start=start.isoformat(),
+            end=(end + dt.timedelta(days=1)).isoformat(),
+            interval="1wk",
+            auto_adjust=False,
+            actions=False,
+            progress=False,
+        )
+        if frame.empty:
+            raise FetchError(f"provider returned no weekly rows for {symbol}")
+        close = frame["Close"]
+        if getattr(close, "ndim", 1) != 1:
+            if symbol in getattr(close, "columns", []):
+                close = close[symbol]
+            else:
+                raise FetchError(f"ambiguous Close field for {symbol}")
+        records: list[dict[str, Any]] = []
+        for index, value in close.items():
+            if value is None or value != value:
+                raise FetchError(f"null/NaN raw close for {symbol} at {index}")
+            date_value = index.date() if hasattr(index, "date") else dt.date.fromisoformat(str(index)[:10])
+            if date_value < start or date_value > end:
+                continue
+            records.append({"date": date_value.isoformat(), "raw_close": float(value)})
+        if not records:
+            raise FetchError(f"no rows remained inside requested range for {symbol}")
+        dates = [row["date"] for row in records]
+        if len(dates) != len(set(dates)):
+            raise FetchError(f"duplicate weekly dates for {symbol}")
+        return records
 
-# 更新して結果を表示
-updated_closes = update_weekly_closes(etfs)
-print(updated_closes)
+
+def load_universe(path: Path = DEFAULT_UNIVERSE) -> list[Ticker]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != "etf.ticker-universe.v1":
+        raise FetchError("unsupported ticker universe schema")
+    rows = payload.get("tickers")
+    if not isinstance(rows, list) or not rows:
+        raise FetchError("ticker universe must contain at least one ticker")
+    tickers = [Ticker(**row) for row in rows]
+    symbols = [row.symbol for row in tickers]
+    if len(symbols) != len(set(symbols)):
+        raise FetchError("ticker universe contains duplicate symbols")
+    return tickers
+
+
+def build_snapshot(
+    tickers: list[Ticker],
+    provider: Provider,
+    *,
+    start: dt.date,
+    end: dt.date,
+    retrieved_at: dt.datetime,
+    source_commit: str | None,
+) -> dict[str, Any]:
+    if end < start:
+        raise FetchError("end date must be on or after start date")
+    series: list[dict[str, Any]] = []
+    failures: list[dict[str, str]] = []
+    for ticker in tickers:
+        try:
+            records = provider.weekly_prices(ticker.symbol, start, end)
+        except Exception as exc:
+            failures.append({"symbol": ticker.symbol, "reason": f"{type(exc).__name__}: {exc}"})
+            continue
+        series.append(
+            {
+                "symbol": ticker.symbol,
+                "exchange": ticker.exchange,
+                "currency": ticker.currency,
+                "price_field_semantics": "raw_close",
+                "requested_start": start.isoformat(),
+                "requested_end": end.isoformat(),
+                "actual_start": records[0]["date"],
+                "actual_end": records[-1]["date"],
+                "row_count": len(records),
+                "records": records,
+            }
+        )
+    if failures:
+        detail = "; ".join(f"{row['symbol']}: {row['reason']}" for row in failures)
+        raise FetchError("partial fetch rejected; current snapshot was not replaced: " + detail)
+    payload: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "provider": provider.name,
+        "request": {"interval": "1wk", "start": start.isoformat(), "end": end.isoformat()},
+        "retrieved_at": retrieved_at.astimezone(dt.timezone.utc).isoformat(),
+        "timezone": "UTC",
+        "source_commit": source_commit,
+        "series": series,
+    }
+    canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    payload["snapshot_sha256"] = hashlib.sha256(canonical).hexdigest()
+    return payload
+
+
+def write_snapshot_atomic(payload: dict[str, Any], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    text = json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
+    fd, temp_name = tempfile.mkstemp(prefix=output.name + ".", suffix=".tmp", dir=output.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_name, output)
+    except BaseException:
+        try:
+            os.unlink(temp_name)
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def parser() -> argparse.ArgumentParser:
+    result = argparse.ArgumentParser(description="Fetch an explicit, fail-closed ETF weekly raw-close snapshot")
+    result.add_argument("--start", type=dt.date.fromisoformat, required=True)
+    result.add_argument("--end", type=dt.date.fromisoformat, required=True)
+    result.add_argument("--universe", type=Path, default=DEFAULT_UNIVERSE)
+    result.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    result.add_argument("--retrieved-at", type=dt.datetime.fromisoformat, help="Explicit retrieval timestamp for reproducible fixtures")
+    return result
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = parser().parse_args(argv)
+    retrieved_at = args.retrieved_at or dt.datetime.now(dt.timezone.utc)
+    if retrieved_at.tzinfo is None:
+        raise FetchError("--retrieved-at must include a timezone offset")
+    snapshot = build_snapshot(
+        load_universe(args.universe),
+        YFinanceProvider(),
+        start=args.start,
+        end=args.end,
+        retrieved_at=retrieved_at,
+        source_commit=os.environ.get("GITHUB_SHA"),
+    )
+    write_snapshot_atomic(snapshot, args.output)
+    print(f"wrote {len(snapshot['series'])} complete series to {args.output}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
