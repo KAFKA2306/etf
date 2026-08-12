@@ -1,0 +1,57 @@
+name: ETF price fetch safety
+
+on:
+  pull_request:
+    paths:
+      - "fetch.py"
+      - "data/ticker-universe.json"
+      - "tests/test_fetch_safety.py"
+      - ".github/workflows/price-fetch-safety.yml"
+  push:
+    branches: [main]
+    paths:
+      - "fetch.py"
+      - "data/ticker-universe.json"
+      - "tests/test_fetch_safety.py"
+      - ".github/workflows/price-fetch-safety.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Compile import-safe acquisition code
+        run: python -m py_compile fetch.py tests/test_fetch_safety.py
+      - name: Offline safety tests
+        run: python -m unittest discover -s tests -p 'test_fetch_safety.py' -v
+      - name: Reject legacy unsafe acquisition paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -nE 'C:\\Users\\|pickle\.load|pickle\.dump|date\.today\(' fetch.py
+          grep -q 'if __name__ == "__main__"' fetch.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          payload = json.loads(Path('data/ticker-universe.json').read_text(encoding='utf-8'))
+          assert payload['schema_version'] == 'etf.ticker-universe.v1'
+          symbols = [row['symbol'] for row in payload['tickers']]
+          assert symbols and len(symbols) == len(set(symbols))
+          assert all(row['active_status'] in {'active', 'delisted', 'unknown'} for row in payload['tickers'])
+          PY
+      - name: Remove test caches and verify clean checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
+          find . -type f -name '*.py[co]' -delete
+          test -z "$(git status --porcelain --untracked-files=all)"
