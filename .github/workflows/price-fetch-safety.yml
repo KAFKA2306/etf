@@ -48,6 +48,10 @@ jobs:
           assert symbols and len(symbols) == len(set(symbols))
           assert all(row['active_status'] in {'active', 'delisted', 'unknown'} for row in payload['tickers'])
           PY
-      - name: Verify clean checkout
+      - name: Remove test caches and verify clean checkout
         shell: bash
-        run: test -z "$(git status --porcelain --untracked-files=all)"
+        run: |
+          set -euo pipefail
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
+          find . -type f -name '*.py[co]' -delete
+          test -z "$(git status --porcelain --untracked-files=all)"
