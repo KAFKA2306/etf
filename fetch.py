@@ -92,6 +92,24 @@ def load_universe(path: Path = DEFAULT_UNIVERSE) -> list[Ticker]:
     return tickers
 
 
+def _snapshot_digest(payload: dict[str, Any]) -> str:
+    unsigned = {key: value for key, value in payload.items() if key != "snapshot_sha256"}
+    canonical = json.dumps(unsigned, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def verify_snapshot(payload: dict[str, Any]) -> None:
+    """Fail closed when a snapshot is malformed or its signed content drifted."""
+    if payload.get("schema_version") != SCHEMA_VERSION:
+        raise FetchError("unsupported price snapshot schema")
+    expected = payload.get("snapshot_sha256")
+    if not isinstance(expected, str) or len(expected) != 64:
+        raise FetchError("snapshot_sha256 is missing or malformed")
+    actual = _snapshot_digest(payload)
+    if actual != expected:
+        raise FetchError("snapshot checksum mismatch; refusing to publish tampered content")
+
+
 def build_snapshot(
     tickers: list[Ticker],
     provider: Provider,
@@ -137,12 +155,12 @@ def build_snapshot(
         "source_commit": source_commit,
         "series": series,
     }
-    canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    payload["snapshot_sha256"] = hashlib.sha256(canonical).hexdigest()
+    payload["snapshot_sha256"] = _snapshot_digest(payload)
     return payload
 
 
 def write_snapshot_atomic(payload: dict[str, Any], output: Path) -> None:
+    verify_snapshot(payload)
     output.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
     fd, temp_name = tempfile.mkstemp(prefix=output.name + ".", suffix=".tmp", dir=output.parent)
