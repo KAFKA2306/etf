@@ -1,0 +1,26 @@
+name: ARK holdings source
+
+on:
+  pull_request:
+    paths:
+      - 'collect_ark_holdings.py'
+      - 'test_ark_holdings.py'
+      - '.github/workflows/ark-holdings-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit test
+        run: python -m unittest test_ark_holdings.py
+      - name: Fetch official ARK holdings
+        run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings
