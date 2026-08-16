@@ -21,6 +21,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Unit test
-        run: python -c "import test_ark_holdings as t; t.test_parse_csv_keeps_holdings_and_drops_footer()"
+        run: python -c "import test_ark_holdings as t; t.test_parse_csv_keeps_holdings_and_drops_footer(); t.test_arkx_uses_current_fund_name()"
       - name: Fetch official ARK holdings
         run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings

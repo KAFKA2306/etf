@@ -1,4 +1,4 @@
-from collect_ark_holdings import parse_csv
+from collect_ark_holdings import CANDIDATE_FILES, parse_csv
 
 
 def test_parse_csv_keeps_holdings_and_drops_footer():
@@ -8,3 +8,9 @@ def test_parse_csv_keeps_holdings_and_drops_footer():
     assert len(rows) == 1
     assert rows[0]["company"] == "EXAMPLE INC"
     assert rows[0]["fund_ticker"] == "ARKK"
+
+
+def test_arkx_uses_current_fund_name():
+    assert CANDIDATE_FILES["ARKX"] == (
+        "ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",
+    )
