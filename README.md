@@ -6,17 +6,30 @@
 
 **ETFは、値上がり率だけを並べても同じ条件の比較にはならない。**
 
-同じ期間に見えても、配当を再投資しているか、通貨が同じか、為替ヘッジがあるか、調整済み価格か、設定日前のデータが混ざっていないかで結果は変わります。過去snapshotを最新データのように扱えば、計算自体が正しくても比較の意味を誤ります。
+同じ期間に見えても、配当を再投資しているか、通貨が同じか、為替ヘッジがあるか、調整済み価格か、設定日前のデータが混ざっていないかで結果は変わります。
 
-このrepositoryは、週次価格データを使ってETFの収益とリスクを比較し、その前提条件を確認する研究用プロジェクトです。リターン、volatility、Sharpe ratio、JPX公式snapshotを扱います。
+このrepositoryは、ETF価格を日々取得して取得日時とともに保存し、そのデータを研究用の比較に使うプロジェクトです。価格取得とJPX公式listing snapshotは別のデータ系統として扱います。
 
 **リポジトリ:** https://github.com/KAFKA2306/etf
 
-現在のコードと価格データは研究用の過去スナップショットです。最新のETF、価格、経費率、指数構成、為替ヘッジ条件を自動的に保証するものではありません。
+## 日次価格snapshot
+
+最新の取得結果:
+
+- データ: [`data/prices/current.json`](data/prices/current.json)
+- 対象ticker: [`data/ticker-universe.json`](data/ticker-universe.json)
+- 自動取得: [ETF daily prices](https://github.com/KAFKA2306/etf/actions/workflows/daily-prices.yml)
+- 取得コード: [`fetch.py`](fetch.py)
+
+`data/prices/current.json` には、provider、取得区間、`retrieved_at`、各tickerの実データ期間、row count、価格の意味、snapshot SHA-256を保存します。現在の取得粒度は日足 (`1d`) で、価格列は `raw_close` です。
+
+GitHub Actionsは毎日08:17 Asia/Tokyoに取得します。価格が休日などで前回と同じでも、取得成功時は `retrieved_at` が更新されるため、収集処理が継続していることをGit履歴から確認できます。一部tickerの取得に失敗した場合は、成功分だけで最新snapshotを置き換えません。
+
+価格取得には `yfinance` を使用しています。これはYahoo Financeの公式サービスではありません。公開データの利用条件はyfinanceおよびYahooの案内を確認してください。
 
 ## JPX公式ETFデータ API v1
 
-既存分析とは分離して、日本取引所グループ（JPX）の公式ETF新規上場情報を検証済みsnapshotから配布します。
+価格取得とは分離して、日本取引所グループ（JPX）の公式ETF新規上場情報を検証済みsnapshotから配布します。
 
 - `api/v1/manifest.json`: 件数、対象期間、出典、利用条件、SHA-256
 - `api/v1/listings.json`: JSON配布
@@ -24,92 +37,70 @@
 - `api/v1/facets.json`: 管理会社・上場月・アクティブETF・iNAV集計
 - `docs/data-api.md`: データ辞書、欠損値、差分同期、互換性
 
-正準snapshotは`data/official/`に保持し、過去snapshotを削除せず履歴として追加します。通常CIは外部サイトへアクセスせず、保存済みsnapshotから決定的に配布物を再生成します。
+正準snapshotは `data/official/` に保持し、過去snapshotを削除せず履歴として追加します。通常CIは外部サイトへアクセスせず、保存済みsnapshotから配布物を再生成します。
 
-## 主な分析
+## 研究用の比較
 
-- 週次価格の読込
-- 週次リターンの計算
+既存Notebookでは、取得済み価格を使って次のような比較を行います。
+
+- リターン
 - 平均リターンとボラティリティ
-- シャープレシオ
-- ETF間ランキング
+- Sharpe ratio
+- ETF間比較
 - Matplotlib・Plotlyによる可視化
 
-## 入力データ
+Notebookには週次へ集約して分析する既存コードも残っています。日次取得snapshotと分析時の集約粒度は区別してください。
 
-ETFごとの週次終値または調整済み終値を想定します。
+## 比較前に確認すること
 
-分析前に次を確認してください。
-
-- 価格が配当・分割調整済みか
-- 通貨が統一されているか
+- `raw_close` か調整済み価格か
+- 配当・分割をどう扱うか
+- 通貨が同じか
 - 為替ヘッジ有無
-- 休場週・欠損週の扱い
+- 休場日・欠損日の扱い
 - ETFの設定日より前のデータが混入していないか
 - 上場廃止ETFを除外していないか
+- 比較期間の開始・終了がそろっているか
 
-## シャープレシオ
+## Sharpe ratio
 
 ```text
 Sharpe ratio
 = (平均リターン − 無リスク利回り) / リターン標準偏差
 ```
 
-既存実装では無リスク利回りを0と置く場合があります。分析期間や通貨に応じた短期金利を使う場合は、週次単位へ変換し、価格データと期間をそろえてください。
+無リスク利回りを0と置く分析は、その前提を明示してください。異なる通貨・期間のETFを同じSharpe ratioだけで順位付けしないでください。
 
-## 必要ライブラリ
+## 比較時の注意
 
-主な利用ライブラリ:
+- 経費率、売買手数料、スプレッド、税を無視しない
+- レバレッジ型・インバース型を通常ETFと同じ前提で比較しない
+- 小標本のランキングを安定した能力と解釈しない
+- 過去の上位ETFだけを抽出する選択バイアスに注意する
+- Sharpe ratioだけで商品を選ばない
 
-```text
-pandas
-numpy
-matplotlib
-plotly
-IPython
-```
-
-`pickle`はPython標準ライブラリです。信頼できないpickleファイルを読み込むと任意コード実行の危険があるため、外部から受け取ったファイルを開かないでください。
-
-## 実行方法
-
-リポジトリ内のNotebookまたはPythonスクリプトを、隔離した仮想環境から実行します。
+## 価格を手動取得する
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install pandas numpy matplotlib plotly jupyter
-jupyter lab
+python -m pip install yfinance==1.5.2
+python fetch.py --start 2024-01-01 --end 2026-08-17
 ```
 
-公式JPX API配布物だけを再生成・検証する場合は外部ライブラリ不要です。
+`--end` は実行したい日付へ置き換えます。正常終了すると `data/prices/current.json` がatomicに置き換わります。
+
+offline safety tests:
+
+```bash
+python -m unittest discover -s tests -p 'test_fetch_safety.py' -v
+```
+
+JPX配布物の再生成・検証:
 
 ```bash
 python scripts/build_jpx_api.py
 python -m unittest discover -s tests -v
 ```
 
-Windowsでは仮想環境の有効化コマンドを環境に合わせて変更してください。
-
-## 比較時の注意
-
-- シャープレシオだけで商品を選ばない
-- 期間の開始・終了をそろえる
-- 分配金再投資の有無をそろえる
-- 経費率、売買手数料、スプレッド、税を考慮する
-- レバレッジ型・インバース型を通常ETFと同じ前提で比較しない
-- 小標本のランキングを安定した能力と解釈しない
-- 過去の上位ETFだけを抽出する選択バイアスに注意する
-
-## 改修優先度
-
-- `pyproject.toml`とロックファイルを追加する
-- 価格入力データのスキーマを明示する
-- 無リスク金利を設定可能にする
-- 調整済み価格と分配金を検証する
-- ウォークフォワード評価を追加する
-- 結果へ対象期間とデータ取得日を表示する
-
 ## 注意
 
-本プロジェクトはETF分析の学習・研究用です。投資助言、商品推奨、将来収益の保証ではありません。
+本プロジェクトはETF分析の学習・研究用です。投資助言、商品推奨、将来収益の保証ではありません。価格snapshotの `retrieved_at` と各seriesの `actual_end` を確認してから利用してください。
