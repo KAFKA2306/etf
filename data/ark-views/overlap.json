@@ -1,0 +1,573 @@
+{
+  "as_of": "08/17/2026",
+  "shared_holdings": [
+    {
+      "security": "X9USDGSFT",
+      "funds": [
+        "ARKF",
+        "ARKG",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 6
+    },
+    {
+      "security": "007903107",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 5
+    },
+    {
+      "security": "023135106",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 5
+    },
+    {
+      "security": "67066G104",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 5
+    },
+    {
+      "security": "69608A108",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 5
+    },
+    {
+      "security": "02079K107",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "02079K305",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "25809K105",
+      "funds": [
+        "ARKF",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "84615Q103",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "874039100",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "88160R101",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 4
+    },
+    {
+      "security": "03945R102",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "05605H100",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "09175A206",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "11135F101",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "172573107",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "18915M107",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "19260Q107",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "30303M102",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "50077B207",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "770700102",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "771049103",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "773121108",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "82509L107",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "852234103",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "880770102",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "98386P102",
+      "funds": [
+        "ARKK",
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "BREADUMMY",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "G13311132",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "G16910120",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "PPOPENAIC",
+      "funds": [
+        "ARKF",
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 3
+    },
+    {
+      "security": "008073108",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "009066101",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "07373V105",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "15675D103",
+      "funds": [
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "157085101",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "21873S108",
+      "funds": [
+        "ARKK",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "22788C105",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "244199105",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "26142V105",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "452327109",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "45826J105",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "46125A100",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "502431109",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "532457108",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "58733R102",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "632307104",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "69404D108",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "75629V104",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "81663L200",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "83406F102",
+      "funds": [
+        "ARKF",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "871607107",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "879360105",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "88023B103",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "88025U109",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "888787108",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "896239100",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "90184D100",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "92337F107",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "BQ84B35",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "BTRDQ40",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "G65163100",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "H17182108",
+      "funds": [
+        "ARKG",
+        "ARKK"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "L8681T102",
+      "funds": [
+        "ARKF",
+        "ARKW"
+      ],
+      "fund_count": 2
+    },
+    {
+      "security": "M3760D101",
+      "funds": [
+        "ARKQ",
+        "ARKX"
+      ],
+      "fund_count": 2
+    }
+  ]
+}
