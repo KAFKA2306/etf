@@ -1,6 +1,13 @@
 name: ARK ETF holdings
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'collect_ark_holdings.py'
+      - 'build_ark_views.py'
+      - 'test_ark_holdings.py'
+      - '.github/workflows/ark-holdings-source.yml'
   pull_request:
     paths:
       - 'collect_ark_holdings.py'
