@@ -1,26 +1,47 @@
-name: ARK holdings source
+name: ARK ETF holdings
 
 on:
   pull_request:
     paths:
       - 'collect_ark_holdings.py'
+      - 'build_ark_views.py'
       - 'test_ark_holdings.py'
       - '.github/workflows/ark-holdings-source.yml'
+  schedule:
+    - cron: '30 10 * * 2-6'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  verify:
+  collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Unit test
-        run: python -c "import test_ark_holdings as t; t.test_parse_csv_keeps_holdings_and_drops_footer(); t.test_arkx_uses_current_fund_name()"
-      - name: Fetch official ARK holdings
+      - name: Unit tests
+        run: python -m unittest -v test_ark_holdings.py
+      - name: Verify official ARK sources
+        if: github.event_name == 'pull_request'
         run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings
+      - name: Store official holdings and build views
+        if: github.event_name != 'pull_request'
+        run: |
+          python collect_ark_holdings.py
+          python build_ark_views.py
+      - name: Commit new snapshot
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- data/ark-holdings data/ark-views; then
+            echo 'No new ARK holdings snapshot.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/ark-holdings data/ark-views
+          git commit -m 'data: snapshot ARK ETF holdings'
+          git push
