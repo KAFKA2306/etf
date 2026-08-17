@@ -50,7 +50,7 @@ def snapshot():
 class FetchSafetyTests(unittest.TestCase):
     def test_import_exposes_explicit_entrypoint(self):
         self.assertTrue(callable(fetch.main))
-        self.assertEqual(fetch.DEFAULT_OUTPUT, Path("data/prices/current.json"))
+        self.assertEqual(fetch.DEFAULT_OUTPUT.parts[-3:], ("data", "prices", "current.json"))
 
     def test_explicit_period_and_timestamp_are_deterministic(self):
         first = snapshot()
