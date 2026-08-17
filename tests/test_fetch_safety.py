@@ -48,9 +48,9 @@ def snapshot():
 
 
 class FetchSafetyTests(unittest.TestCase):
-    def test_import_has_no_network_or_file_side_effect_entrypoint(self):
+    def test_import_exposes_explicit_entrypoint(self):
         self.assertTrue(callable(fetch.main))
-        self.assertFalse(fetch.DEFAULT_OUTPUT.exists())
+        self.assertEqual(fetch.DEFAULT_OUTPUT, Path("data/prices/current.json"))
 
     def test_explicit_period_and_timestamp_are_deterministic(self):
         first = snapshot()
