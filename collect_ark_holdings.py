@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch official ARK ETF holdings CSVs and store normalized snapshots."""
+"""Fetch official ARK ETF holdings CSVs and store append-only normalized snapshots."""
 from __future__ import annotations
 
 import argparse
@@ -107,16 +107,19 @@ def fetch_fund(ticker: str) -> tuple[str, bytes, list[dict[str, str]], str | Non
 
 
 def collect(tickers: tuple[str, ...] = FUNDS) -> dict[str, object]:
+    retrieved_at = datetime.now(timezone.utc).isoformat()
     snapshots = []
     for ticker in tickers:
         url, raw, rows, as_of = fetch_fund(ticker)
+        if not as_of:
+            raise RuntimeError(f"{ticker}: official CSV has no as-of date")
         for row in rows:
             row["fund_ticker"] = ticker
         snapshots.append(
             {
                 "fund": ticker,
                 "as_of": as_of,
-                "retrieved_at": datetime.now(timezone.utc).isoformat(),
+                "retrieved_at": retrieved_at,
                 "source_csv_url": url,
                 "source_sha256": hashlib.sha256(raw).hexdigest(),
                 "row_count": len(rows),
@@ -126,19 +129,43 @@ def collect(tickers: tuple[str, ...] = FUNDS) -> dict[str, object]:
     return {"schema_version": 1, "publisher": "ARK ETF Trust", "snapshots": snapshots}
 
 
+def parse_date(value: str) -> str:
+    for fmt in ("%m/%d/%Y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(value, fmt).date().isoformat()
+        except ValueError:
+            pass
+    raise ValueError(f"unsupported as-of date: {value!r}")
+
+
+def snapshot_identity(payload: dict[str, object]) -> tuple[str, str]:
+    snapshots = payload["snapshots"]
+    dates = {parse_date(str(item["as_of"])) for item in snapshots}
+    if len(dates) != 1:
+        raise RuntimeError(f"fund as-of dates disagree: {sorted(dates)}")
+    source_hashes = sorted(
+        f'{item["fund"]}:{item["source_sha256"]}'
+        for item in snapshots
+    )
+    fingerprint = hashlib.sha256("\n".join(source_hashes).encode()).hexdigest()[:16]
+    return dates.pop(), fingerprint
+
+
+def write_snapshot(payload: dict[str, object], output_dir: Path) -> Path:
+    as_of, fingerprint = snapshot_identity(payload)
+    path = output_dir / as_of / f"{fingerprint}.json"
+    if path.exists():
+        return path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, default=Path("data/ark-holdings"))
     args = parser.parse_args()
-    payload = collect()
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    path = args.output_dir / f"ark-holdings-{stamp}.json"
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    print(path)
+    print(write_snapshot(collect(), args.output_dir))
 
 
 if __name__ == "__main__":
