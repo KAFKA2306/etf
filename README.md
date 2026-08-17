@@ -1,5 +1,9 @@
 # etf — ETF比較
 
+[![ETF daily prices](https://github.com/KAFKA2306/etf/actions/workflows/daily-prices.yml/badge.svg)](https://github.com/KAFKA2306/etf/actions/workflows/daily-prices.yml)
+[![JPX ETF data integrity](https://github.com/KAFKA2306/etf/actions/workflows/jpx-data.yml/badge.svg)](https://github.com/KAFKA2306/etf/actions/workflows/jpx-data.yml)
+[![ETF price fetch safety](https://github.com/KAFKA2306/etf/actions/workflows/price-fetch-safety.yml/badge.svg)](https://github.com/KAFKA2306/etf/actions/workflows/price-fetch-safety.yml)
+
 **ETFは、値上がり率だけを並べても同じ条件の比較にはならない。**
 
 同じ期間に見えても、配当を再投資しているか、通貨が同じか、為替ヘッジがあるか、調整済み価格か、設定日前のデータが混ざっていないかで結果は変わります。過去snapshotを最新データのように扱えば、計算自体が正しくても比較の意味を誤ります。
