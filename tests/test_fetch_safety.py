@@ -14,13 +14,13 @@ class FakeProvider:
         self.fail_symbol = fail_symbol
         self.calls = []
 
-    def weekly_prices(self, symbol, start, end):
+    def daily_prices(self, symbol, start, end):
         self.calls.append((symbol, start, end))
         if symbol == self.fail_symbol:
             raise RuntimeError("injected provider failure")
         return [
             {"date": "2026-01-02", "raw_close": 100.0},
-            {"date": "2026-01-09", "raw_close": 101.5},
+            {"date": "2026-01-05", "raw_close": 101.5},
         ]
 
 
@@ -56,6 +56,8 @@ class FetchSafetyTests(unittest.TestCase):
         first = snapshot()
         second = snapshot()
         self.assertEqual(first, second)
+        self.assertEqual(first["schema_version"], "etf.daily-prices.v1")
+        self.assertEqual(first["request"]["interval"], "1d")
         self.assertEqual(first["request"]["start"], "2026-01-01")
         self.assertEqual(first["request"]["end"], "2026-01-31")
         self.assertEqual(first["series"][0]["price_field_semantics"], "raw_close")
