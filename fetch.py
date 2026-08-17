@@ -13,7 +13,7 @@ from typing import Any, Protocol
 ROOT = Path(__file__).resolve().parent
 DEFAULT_UNIVERSE = ROOT / "data" / "ticker-universe.json"
 DEFAULT_OUTPUT = ROOT / "data" / "prices" / "current.json"
-SCHEMA_VERSION = "etf.weekly-prices.v1"
+SCHEMA_VERSION = "etf.daily-prices.v1"
 
 
 class FetchError(RuntimeError):
@@ -23,7 +23,7 @@ class FetchError(RuntimeError):
 class Provider(Protocol):
     name: str
 
-    def weekly_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]: ...
+    def daily_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]: ...
 
 
 @dataclass(frozen=True)
@@ -40,7 +40,7 @@ class Ticker:
 class YFinanceProvider:
     name = "yfinance"
 
-    def weekly_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]:
+    def daily_prices(self, symbol: str, start: dt.date, end: dt.date) -> list[dict[str, Any]]:
         try:
             import yfinance as yf  # type: ignore
         except ImportError as exc:
@@ -49,13 +49,13 @@ class YFinanceProvider:
             symbol,
             start=start.isoformat(),
             end=(end + dt.timedelta(days=1)).isoformat(),
-            interval="1wk",
+            interval="1d",
             auto_adjust=False,
             actions=False,
             progress=False,
         )
         if frame.empty:
-            raise FetchError(f"provider returned no weekly rows for {symbol}")
+            raise FetchError(f"provider returned no daily rows for {symbol}")
         close = frame["Close"]
         if getattr(close, "ndim", 1) != 1:
             if symbol in getattr(close, "columns", []):
@@ -74,7 +74,7 @@ class YFinanceProvider:
             raise FetchError(f"no rows remained inside requested range for {symbol}")
         dates = [row["date"] for row in records]
         if len(dates) != len(set(dates)):
-            raise FetchError(f"duplicate weekly dates for {symbol}")
+            raise FetchError(f"duplicate daily dates for {symbol}")
         return records
 
 
@@ -125,7 +125,7 @@ def build_snapshot(
     failures: list[dict[str, str]] = []
     for ticker in tickers:
         try:
-            records = provider.weekly_prices(ticker.symbol, start, end)
+            records = provider.daily_prices(ticker.symbol, start, end)
         except Exception as exc:
             failures.append({"symbol": ticker.symbol, "reason": f"{type(exc).__name__}: {exc}"})
             continue
@@ -149,7 +149,7 @@ def build_snapshot(
     payload: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "provider": provider.name,
-        "request": {"interval": "1wk", "start": start.isoformat(), "end": end.isoformat()},
+        "request": {"interval": "1d", "start": start.isoformat(), "end": end.isoformat()},
         "retrieved_at": retrieved_at.astimezone(dt.timezone.utc).isoformat(),
         "timezone": "UTC",
         "source_commit": source_commit,
@@ -179,7 +179,7 @@ def write_snapshot_atomic(payload: dict[str, Any], output: Path) -> None:
 
 
 def parser() -> argparse.ArgumentParser:
-    result = argparse.ArgumentParser(description="Fetch an explicit, fail-closed ETF weekly raw-close snapshot")
+    result = argparse.ArgumentParser(description="Fetch an explicit, fail-closed ETF daily raw-close snapshot")
     result.add_argument("--start", type=dt.date.fromisoformat, required=True)
     result.add_argument("--end", type=dt.date.fromisoformat, required=True)
     result.add_argument("--universe", type=Path, default=DEFAULT_UNIVERSE)
