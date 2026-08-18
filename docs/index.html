@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ARK ETF holdings snapshots and audit status from KAFKA2306/etf">
+  <title>ARK ETF Holdings</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f2ee;
+      --surface: #fffdf8;
+      --text: #22201d;
+      --muted: #706b64;
+      --line: #d9d4cc;
+      --accent: #55705f;
+      --ok: #3e6651;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 72px; }
+    header { margin-bottom: 32px; }
+    .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 8px 0 8px; font-size: clamp(2rem, 6vw, 4.25rem); line-height: 1; letter-spacing: -.04em; }
+    .lead { max-width: 720px; margin: 0; color: var(--muted); }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
+    .chip { border: 1px solid var(--line); border-radius: 999px; background: var(--surface); padding: 6px 10px; font-size: .86rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .card { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 20px; }
+    .ticker { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+    .ticker h2 { margin: 0; font-size: 1.45rem; }
+    .status { color: var(--ok); font-size: .82rem; font-weight: 700; }
+    dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 18px 0 0; }
+    dt { color: var(--muted); }
+    dd { margin: 0; font-variant-numeric: tabular-nums; }
+    nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    .error { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 20px; color: var(--muted); }
+    footer { margin-top: 36px; color: var(--muted); font-size: .86rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">KAFKA2306 / ETF</div>
+      <h1>ARK ETF Holdings</h1>
+      <p class="lead">ARK公式holdingsを日次snapshotとして保存し、取得時点・原本・監査結果を追跡します。投資テーマや将来予測ではなく、観測データを表示する入口です。</p>
+      <div class="meta">
+        <span class="chip" id="as-of">as-of: loading</span>
+        <span class="chip" id="snapshot-count">snapshots: loading</span>
+        <span class="chip">6 funds</span>
+      </div>
+    </header>
+
+    <section id="funds" class="grid" aria-live="polite"></section>
+
+    <nav aria-label="Project links">
+      <a href="https://github.com/KAFKA2306/etf">Repository</a>
+      <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/latest.json">Latest view</a>
+      <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/changes.json">Changes</a>
+      <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/overlap.json">Overlap</a>
+      <a href="./data-api.html">Data API</a>
+    </nav>
+
+    <footer>Source metadata and audit values are loaded from the repository's committed <code>data/ark-views/latest.json</code>.</footer>
+  </main>
+
+  <script>
+    const latestUrl = 'https://raw.githubusercontent.com/KAFKA2306/etf/main/data/ark-views/latest.json';
+    const funds = document.getElementById('funds');
+
+    function card(ticker, fund) {
+      const audit = fund.audit || {};
+      return `
+        <article class="card">
+          <div class="ticker">
+            <h2>${ticker}</h2>
+            <span class="status">AUDITED</span>
+          </div>
+          <dl>
+            <dt>holdings</dt><dd>${fund.row_count ?? '—'}</dd>
+            <dt>weight total</dt><dd>${audit.weight_total ?? '—'}%</dd>
+            <dt>duplicate IDs</dt><dd>${audit.duplicate_identity_count ?? '—'}</dd>
+            <dt>missing IDs</dt><dd>${audit.missing_identity_count ?? '—'}</dd>
+          </dl>
+        </article>`;
+    }
+
+    fetch(latestUrl, { cache: 'no-store' })
+      .then(response => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('as-of').textContent = `as-of: ${data.as_of ?? 'unknown'}`;
+        document.getElementById('snapshot-count').textContent = `snapshots: ${data.snapshot_count ?? 'unknown'}`;
+        funds.innerHTML = Object.entries(data.funds || {}).map(([ticker, fund]) => card(ticker, fund)).join('');
+      })
+      .catch(error => {
+        funds.innerHTML = `<div class="error">Latest holdings view could not be loaded (${error.message}). Repository links remain available below.</div>`;
+        document.getElementById('as-of').textContent = 'as-of: unavailable';
+        document.getElementById('snapshot-count').textContent = 'snapshots: unavailable';
+      });
+  </script>
+</body>
+</html>
