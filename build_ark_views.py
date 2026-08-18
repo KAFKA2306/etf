@@ -34,6 +34,20 @@ def weight(row: dict[str, str]) -> float | None:
         return None
 
 
+def audit_snapshot(snapshot: dict) -> dict[str, float | int]:
+    rows = snapshot["holdings"]
+    keys = [security_key(row) for row in rows]
+    weights = [weight(row) for row in rows]
+    present_keys = [key for key in keys if key]
+    present_weights = [value for value in weights if value is not None]
+    return {
+        "weight_total": round(sum(present_weights), 4),
+        "duplicate_identity_count": len(present_keys) - len(set(present_keys)),
+        "missing_identity_count": len(keys) - len(present_keys),
+        "missing_weight_count": len(weights) - len(present_weights),
+    }
+
+
 def load_history(root: Path) -> list[dict]:
     by_date: dict[str, dict] = {}
     for path in sorted(root.glob("*/*.json")):
@@ -118,6 +132,7 @@ def build(root: Path, output_dir: Path) -> None:
                 "row_count": item["row_count"],
                 "source_csv_url": item["source_csv_url"],
                 "source_sha256": item["source_sha256"],
+                "audit": audit_snapshot(item),
             }
             for item in current["snapshots"]
         },
