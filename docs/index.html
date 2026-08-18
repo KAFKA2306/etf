@@ -65,14 +65,14 @@
       <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/latest.json">Latest view</a>
       <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/changes.json">Changes</a>
       <a href="https://github.com/KAFKA2306/etf/blob/main/data/ark-views/overlap.json">Overlap</a>
-      <a href="./data-api.html">Data API</a>
+      <a href="https://github.com/KAFKA2306/etf/blob/main/docs/data-api.md">Data API</a>
     </nav>
 
-    <footer>Source metadata and audit values are loaded from the repository's committed <code>data/ark-views/latest.json</code>.</footer>
+    <footer>Source metadata and audit values are bundled from the repository's committed <code>data/ark-views/latest.json</code> at deployment time.</footer>
   </main>
 
   <script>
-    const latestUrl = 'https://raw.githubusercontent.com/KAFKA2306/etf/main/data/ark-views/latest.json';
+    const latestUrl = './data/latest.json';
     const funds = document.getElementById('funds');
 
     function card(ticker, fund) {
