@@ -4,7 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from build_ark_views import build
-from collect_ark_holdings import CANDIDATE_FILES, parse_csv, write_snapshot
+from collect_ark_holdings import CANDIDATE_FILES, audit_rows, parse_csv, write_snapshot
 
 
 def payload(as_of="08/17/2026", suffix="a", weights=("1.0", "2.0")):
@@ -38,6 +38,20 @@ class ArkHoldingsTest(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["company"], "EXAMPLE INC")
         self.assertEqual(rows[0]["fund_ticker"], "ARKK")
+
+    def test_audit_rows_checks_identity_duplicates_and_weight_total(self):
+        rows = [
+            {"cusip": "111", "weight (%)": "60.0%"},
+            {"cusip": "222", "weight (%)": "40.0%"},
+        ]
+        self.assertEqual(audit_rows(rows, "ARKK"), {"row_count": 2, "weight_total": 100.0})
+
+        with self.assertRaisesRegex(ValueError, "duplicate security identity"):
+            audit_rows([rows[0], rows[0]], "ARKK")
+        with self.assertRaisesRegex(ValueError, "no weight"):
+            audit_rows([{"cusip": "333"}], "ARKK")
+        with self.assertRaisesRegex(ValueError, "expected about 100"):
+            audit_rows([{"cusip": "333", "weight (%)": "75%"}], "ARKK")
 
     def test_arkx_uses_current_fund_name(self):
         self.assertEqual(
