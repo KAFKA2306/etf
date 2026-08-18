@@ -84,6 +84,45 @@ def identify_ticker(rows: list[dict[str, str]]) -> str | None:
     return None
 
 
+def first_value(row: dict[str, str], *names: str) -> str:
+    for name in names:
+        value = str(row.get(name, "")).strip()
+        if value:
+            return value
+    return ""
+
+
+def holding_identity(row: dict[str, str]) -> str:
+    return (
+        first_value(row, "cusip", "CUSIP")
+        or first_value(row, "ticker", "Ticker")
+        or first_value(row, "company", "Company", "company_name", "Company Name")
+    )
+
+
+def holding_weight(row: dict[str, str]) -> float:
+    value = first_value(row, "weight (%)", "Weight (%)", "weight(%)", "weight", "Weight")
+    if not value:
+        raise ValueError("holding has no weight")
+    try:
+        return float(value.replace("%", "").replace(",", ""))
+    except ValueError as exc:
+        raise ValueError(f"invalid holding weight: {value!r}") from exc
+
+
+def audit_rows(rows: list[dict[str, str]], ticker: str) -> dict[str, float | int]:
+    identities = [holding_identity(row) for row in rows]
+    if any(not identity for identity in identities):
+        raise ValueError(f"{ticker}: holding without security identity")
+    if len(set(identities)) != len(identities):
+        raise ValueError(f"{ticker}: duplicate security identity")
+    weights = [holding_weight(row) for row in rows]
+    weight_total = sum(weights)
+    if not 99.0 <= weight_total <= 101.0:
+        raise ValueError(f"{ticker}: holding weights sum to {weight_total:.4f}, expected about 100")
+    return {"row_count": len(rows), "weight_total": round(weight_total, 4)}
+
+
 def source_url(filename: str) -> str:
     return f"{ASSET_BASE}/{filename}"
 
@@ -113,6 +152,7 @@ def collect(tickers: tuple[str, ...] = FUNDS) -> dict[str, object]:
         url, raw, rows, as_of = fetch_fund(ticker)
         if not as_of:
             raise RuntimeError(f"{ticker}: official CSV has no as-of date")
+        audit = audit_rows(rows, ticker)
         for row in rows:
             row["fund_ticker"] = ticker
         snapshots.append(
@@ -123,6 +163,7 @@ def collect(tickers: tuple[str, ...] = FUNDS) -> dict[str, object]:
                 "source_csv_url": url,
                 "source_sha256": hashlib.sha256(raw).hexdigest(),
                 "row_count": len(rows),
+                "weight_total": audit["weight_total"],
                 "holdings": rows,
             }
         )
