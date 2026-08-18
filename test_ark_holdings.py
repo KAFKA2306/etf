@@ -70,7 +70,7 @@ class ArkHoldingsTest(unittest.TestCase):
             self.assertEqual(first.parent.name, "2026-08-17")
             self.assertTrue(first.exists() and changed.exists())
 
-    def test_views_build_changes_and_overlap(self):
+    def test_views_build_changes_overlap_and_audit(self):
         with TemporaryDirectory() as tmp:
             root = Path(tmp) / "history"
             out = Path(tmp) / "views"
@@ -81,6 +81,15 @@ class ArkHoldingsTest(unittest.TestCase):
             changes = json.loads((out / "changes.json").read_text())
             overlap = json.loads((out / "overlap.json").read_text())
             self.assertEqual(latest["snapshot_count"], 2)
+            self.assertEqual(
+                latest["funds"]["ARKK"]["audit"],
+                {
+                    "weight_total": 1.5,
+                    "duplicate_identity_count": 0,
+                    "missing_identity_count": 0,
+                    "missing_weight_count": 0,
+                },
+            )
             self.assertEqual(changes["funds"]["ARKK"]["weight_changes"][0]["weight"], 1.5)
             self.assertEqual(overlap["shared_holdings"][0]["fund_count"], 2)
 
