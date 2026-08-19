@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from collect_ark_holdings import parse_date
+
 FUNDS = ("ARKK", "ARKQ", "ARKW", "ARKG", "ARKF", "ARKX")
 
 
@@ -52,7 +54,7 @@ def load_history(root: Path) -> list[dict]:
     by_date: dict[str, dict] = {}
     for path in sorted(root.glob("*/*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
-        dates = {str(s["as_of"]) for s in payload["snapshots"]}
+        dates = {parse_date(str(s["as_of"])) for s in payload["snapshots"]}
         if len(dates) != 1:
             raise ValueError(f"{path}: inconsistent as-of dates")
         key = next(iter(dates))
