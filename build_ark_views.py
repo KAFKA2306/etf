@@ -106,6 +106,7 @@ def build_changes(previous: dict | None, current: dict) -> dict:
 
 def build_overlap(current: dict) -> dict:
     per_fund = holdings_by_fund(current)
+    fund_securities = {fund: set(per_fund.get(fund, {})) for fund in FUNDS}
     securities: dict[str, set[str]] = {}
     for fund, rows in per_fund.items():
         for key in rows:
@@ -116,7 +117,18 @@ def build_overlap(current: dict) -> dict:
         if len(funds) > 1
     ]
     shared.sort(key=lambda row: (-row["fund_count"], row["security"]))
-    return {"as_of": current["snapshots"][0]["as_of"], "shared_holdings": shared}
+    matrix = {
+        fund: {
+            other: len(fund_securities[fund] & fund_securities[other])
+            for other in FUNDS
+        }
+        for fund in FUNDS
+    }
+    return {
+        "as_of": current["snapshots"][0]["as_of"],
+        "shared_holdings": shared,
+        "matrix": matrix,
+    }
 
 
 def build(root: Path, output_dir: Path) -> None:
