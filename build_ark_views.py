@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build deterministic ARK holdings changes and overlap views from stored snapshots."""
+"""Build deterministic ARK holdings changes, overlap, and readiness views."""
 from __future__ import annotations
 
 import json
@@ -8,6 +8,7 @@ from pathlib import Path
 from collect_ark_holdings import parse_date
 
 FUNDS = ("ARKK", "ARKQ", "ARKW", "ARKG", "ARKF", "ARKX")
+REQUIRED_TRADING_DAYS = 60
 
 
 def field(row: dict[str, str], *names: str) -> str:
@@ -131,6 +132,69 @@ def build_overlap(current: dict) -> dict:
     }
 
 
+def snapshot_provenance_complete(snapshot: dict) -> bool:
+    return all(
+        (
+            snapshot.get("fund") in FUNDS,
+            bool(snapshot.get("as_of")),
+            bool(snapshot.get("retrieved_at")),
+            str(snapshot.get("source_csv_url", "")).startswith("https://"),
+            len(str(snapshot.get("source_sha256", ""))) == 64,
+        )
+    )
+
+
+def snapshot_audit_clean(snapshot: dict) -> bool:
+    audit = audit_snapshot(snapshot)
+    return (
+        audit["duplicate_identity_count"] == 0
+        and audit["missing_identity_count"] == 0
+        and audit["missing_weight_count"] == 0
+        and 95.0 <= float(audit["weight_total"]) <= 105.0
+    )
+
+
+def build_readiness(history: list[dict]) -> dict:
+    daily_sets_complete = 0
+    provenance_complete = True
+    audit_clean = True
+    for payload in history:
+        snapshots = payload["snapshots"]
+        funds = {snapshot.get("fund") for snapshot in snapshots}
+        if funds == set(FUNDS) and len(snapshots) == len(FUNDS):
+            daily_sets_complete += 1
+        else:
+            provenance_complete = False
+        provenance_complete = provenance_complete and all(
+            snapshot_provenance_complete(snapshot) for snapshot in snapshots
+        )
+        audit_clean = audit_clean and all(
+            snapshot_audit_clean(snapshot) for snapshot in snapshots
+        )
+
+    observed = len(history)
+    current = history[-1]
+    current_funds = sorted(snapshot["fund"] for snapshot in current["snapshots"])
+    checks = {
+        "trading_day_window_complete": observed >= REQUIRED_TRADING_DAYS,
+        "all_daily_sets_have_six_funds": daily_sets_complete == observed,
+        "all_snapshots_have_provenance": provenance_complete,
+        "all_snapshot_audits_clean": audit_clean,
+    }
+    return {
+        "schema_version": 1,
+        "as_of": current["snapshots"][0]["as_of"],
+        "required_trading_days": REQUIRED_TRADING_DAYS,
+        "observed_trading_days": observed,
+        "remaining_trading_days": max(0, REQUIRED_TRADING_DAYS - observed),
+        "complete_daily_sets": daily_sets_complete,
+        "current_funds": current_funds,
+        "checks": checks,
+        "complete": all(checks.values()),
+        "completion_rule": "Complete only after at least 60 distinct official ARK holdings as-of dates have been stored append-only and every stored daily set has all six thematic ETFs with complete provenance and clean identity/weight audits.",
+    }
+
+
 def build(root: Path, output_dir: Path) -> None:
     history = load_history(root)
     if not history:
@@ -155,6 +219,7 @@ def build(root: Path, output_dir: Path) -> None:
         "latest.json": latest,
         "changes.json": build_changes(previous, current),
         "overlap.json": build_overlap(current),
+        "readiness.json": build_readiness(history),
     }
     for name, payload in outputs.items():
         (output_dir / name).write_text(
@@ -165,6 +230,7 @@ def build(root: Path, output_dir: Path) -> None:
 
 def main() -> None:
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-dir", type=Path, default=Path("data/ark-holdings"))
     parser.add_argument("--output-dir", type=Path, default=Path("data/ark-views"))
