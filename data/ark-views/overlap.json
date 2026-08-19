@@ -569,5 +569,55 @@
       ],
       "fund_count": 2
     }
-  ]
+  ],
+  "matrix": {
+    "ARKK": {
+      "ARKK": 47,
+      "ARKQ": 17,
+      "ARKW": 26,
+      "ARKG": 15,
+      "ARKF": 19,
+      "ARKX": 16
+    },
+    "ARKQ": {
+      "ARKK": 17,
+      "ARKQ": 39,
+      "ARKW": 12,
+      "ARKG": 1,
+      "ARKF": 6,
+      "ARKX": 26
+    },
+    "ARKW": {
+      "ARKK": 26,
+      "ARKQ": 12,
+      "ARKW": 44,
+      "ARKG": 1,
+      "ARKF": 27,
+      "ARKX": 11
+    },
+    "ARKG": {
+      "ARKK": 15,
+      "ARKQ": 1,
+      "ARKW": 1,
+      "ARKG": 34,
+      "ARKF": 1,
+      "ARKX": 1
+    },
+    "ARKF": {
+      "ARKK": 19,
+      "ARKQ": 6,
+      "ARKW": 27,
+      "ARKG": 1,
+      "ARKF": 41,
+      "ARKX": 6
+    },
+    "ARKX": {
+      "ARKK": 16,
+      "ARKQ": 26,
+      "ARKW": 11,
+      "ARKG": 1,
+      "ARKF": 6,
+      "ARKX": 35
+    }
+  }
 }
