@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "as_of": "08/19/2026",
+  "required_trading_days": 60,
+  "observed_trading_days": 3,
+  "remaining_trading_days": 57,
+  "complete_daily_sets": 3,
+  "current_funds": [
+    "ARKF",
+    "ARKG",
+    "ARKK",
+    "ARKQ",
+    "ARKW",
+    "ARKX"
+  ],
+  "checks": {
+    "trading_day_window_complete": false,
+    "all_daily_sets_have_six_funds": true,
+    "all_snapshots_have_provenance": true,
+    "all_snapshot_audits_clean": true
+  },
+  "complete": false,
+  "completion_rule": "Complete only after at least 60 distinct official ARK holdings as-of dates have been stored append-only and every stored daily set has all six thematic ETFs with complete provenance and clean identity/weight audits."
+}
