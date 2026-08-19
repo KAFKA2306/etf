@@ -93,6 +93,18 @@ class ArkHoldingsTest(unittest.TestCase):
             self.assertEqual(changes["funds"]["ARKK"]["weight_changes"][0]["weight"], 1.5)
             self.assertEqual(overlap["shared_holdings"][0]["fund_count"], 2)
 
+    def test_views_order_snapshots_across_year_boundary(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp) / "history"
+            out = Path(tmp) / "views"
+            write_snapshot(payload(as_of="12/31/2026", suffix="a"), root)
+            write_snapshot(payload(as_of="01/04/2027", suffix="b"), root)
+            build(root, out)
+            latest = json.loads((out / "latest.json").read_text())
+            changes = json.loads((out / "changes.json").read_text())
+            self.assertEqual(latest["as_of"], "01/04/2027")
+            self.assertEqual(changes["previous_as_of"], "12/31/2026")
+
 
 if __name__ == "__main__":
     unittest.main()
