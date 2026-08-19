@@ -92,6 +92,10 @@ class ArkHoldingsTest(unittest.TestCase):
             )
             self.assertEqual(changes["funds"]["ARKK"]["weight_changes"][0]["weight"], 1.5)
             self.assertEqual(overlap["shared_holdings"][0]["fund_count"], 2)
+            self.assertEqual(overlap["matrix"]["ARKK"]["ARKQ"], 1)
+            self.assertEqual(overlap["matrix"]["ARKQ"]["ARKK"], 1)
+            self.assertEqual(overlap["matrix"]["ARKK"]["ARKK"], 1)
+            self.assertEqual(overlap["matrix"]["ARKK"]["ARKX"], 0)
 
     def test_views_order_snapshots_across_year_boundary(self):
         with TemporaryDirectory() as tmp:
