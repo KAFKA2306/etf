@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   collect:
@@ -35,6 +36,22 @@ jobs:
       - name: Verify official ARK sources
         if: github.event_name == 'pull_request'
         run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings
+      - name: Verify deterministic readiness view on pull requests
+        if: github.event_name == 'pull_request'
+        run: |
+          python build_ark_views.py --output-dir /tmp/ark-views
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          readiness = json.loads(Path('/tmp/ark-views/readiness.json').read_text())
+          assert readiness['required_trading_days'] == 60
+          assert readiness['observed_trading_days'] >= 1
+          assert readiness['remaining_trading_days'] == max(0, 60 - readiness['observed_trading_days'])
+          assert readiness['checks']['all_daily_sets_have_six_funds']
+          assert readiness['checks']['all_snapshots_have_provenance']
+          assert readiness['checks']['all_snapshot_audits_clean']
+          print(readiness)
+          PY
       - name: Store official holdings and build views
         if: github.event_name != 'pull_request'
         run: |
@@ -52,3 +69,24 @@ jobs:
           git add data/ark-holdings data/ark-views
           git commit -m 'data: snapshot ARK ETF holdings'
           git push
+      - name: Close Issue 9 only after deterministic acceptance
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          complete=$(python - <<'PY'
+          import json
+          from pathlib import Path
+          print(str(json.loads(Path('data/ark-views/readiness.json').read_text())['complete']).lower())
+          PY
+          )
+          if [ "$complete" != 'true' ]; then
+            echo '60-trading-day acceptance is not complete.'
+            exit 0
+          fi
+          state=$(gh issue view 9 --repo "$GITHUB_REPOSITORY" --json state --jq .state)
+          if [ "$state" = 'OPEN' ]; then
+            gh issue close 9 --repo "$GITHUB_REPOSITORY" --reason completed --comment 'Automated acceptance gate passed: at least 60 distinct official ARK holdings dates, all six thematic ETFs present on every stored date, complete provenance, and clean identity/weight audits. See data/ark-views/readiness.json.'
+          else
+            echo 'Issue 9 is already closed.'
+          fi
