@@ -1,5 +1,5 @@
 {
-  "as_of": "08/19/2026",
+  "as_of": "08/20/2026",
   "shared_holdings": [
     {
       "security": "X9USDGSFT",
@@ -572,7 +572,7 @@
   ],
   "matrix": {
     "ARKK": {
-      "ARKK": 47,
+      "ARKK": 48,
       "ARKQ": 17,
       "ARKW": 26,
       "ARKG": 15,
