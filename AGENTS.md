@@ -20,6 +20,14 @@ Own ETF evidence and user-facing ETF comparison work for this repository. Curren
 5. Run the smallest relevant deterministic checks and use PR/exact-head CI when changing implementation.
 6. Stop when the bounded outcome is verified. Do not extend a completed result into optional tooling or dashboard work.
 
+## Branch lifecycle
+
+- Aside from the default branch and unavoidable platform-managed/protected branches, a persistent branch is permitted only while it is the head branch of a currently open PR.
+- Creating a work branch creates an obligation to open or reuse its canonical PR immediately; do not use branches as backlog, continuation state, backup, archive, or evidence storage.
+- After a PR is merged or closed, delete its head branch after verifying PR/main state. A branch with no open PR is an orphan and must be deleted.
+- Before and after work, compare repository branches with open PR heads. Do not report cleanup/fixed point while an orphan task branch remains.
+- If the available tool cannot delete a branch, record that as a tooling blocker and do not claim cleanup complete. Never create another orphan branch as a workaround.
+
 ## Merge and release are separate
 
 ### PR merge conditions
@@ -44,4 +52,4 @@ A merged PR does not prove a release. A release blocker does not retroactively m
 
 ## Completion report
 
-Report material Before -> After outcome, authoritative evidence/artifact, Issue/PR/commit and exact-head checks, then report `merged` and `released` separately with direct evidence for each. Include public read-back only when release is in scope, complexity/manual work removed, and the remaining verified blocker.
+Report material Before -> After outcome, authoritative evidence/artifact, Issue/PR/commit and exact-head checks, then report `merged` and `released` separately with direct evidence for each. Include branch cleanup state, public read-back only when release is in scope, complexity/manual work removed, and the remaining verified blocker.
