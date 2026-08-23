@@ -1,10 +1,13 @@
 import datetime as dt
+import hashlib
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
 import fetch
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class FakeProvider:
@@ -105,6 +108,24 @@ class FetchSafetyTests(unittest.TestCase):
         self.assertGreater(len(tickers), 0)
         self.assertEqual(len({item.symbol for item in tickers}), len(tickers))
         self.assertTrue(any(item.active_status == "unknown" for item in tickers))
+
+    def test_root_python_has_no_retired_pickle_or_personal_path_acquisition(self):
+        forbidden = ("C:\\Users\\", "pickle.load", "pickle.dump", ".to_pickle(")
+        for path in sorted(ROOT.glob("*.py")):
+            text = path.read_text(encoding="utf-8")
+            for marker in forbidden:
+                self.assertNotIn(marker, text, msg=f"retired acquisition marker in {path.name}: {marker}")
+
+    def test_root_notebooks_are_not_byte_identical_aliases(self):
+        by_digest = {}
+        for path in sorted(ROOT.glob("*.ipynb")):
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            self.assertNotIn(
+                digest,
+                by_digest,
+                msg=f"duplicate notebook alias: {by_digest.get(digest)} and {path.name}",
+            )
+            by_digest[digest] = path.name
 
 
 if __name__ == "__main__":
