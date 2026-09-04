@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "as_of": "09/03/2026",
+  "as_of": "09/04/2026",
   "required_trading_days": 60,
-  "observed_trading_days": 12,
-  "remaining_trading_days": 48,
-  "complete_daily_sets": 12,
+  "observed_trading_days": 13,
+  "remaining_trading_days": 47,
+  "complete_daily_sets": 13,
   "current_funds": [
     "ARKF",
     "ARKG",
