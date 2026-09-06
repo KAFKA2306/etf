@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p docs/data
           cp data/ark-views/latest.json docs/data/latest.json
+          cp data/ark-views/changes.json docs/data/changes.json
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6

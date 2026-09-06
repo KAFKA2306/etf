@@ -39,6 +39,8 @@
     dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 18px 0 0; }
     dt { color: var(--muted); }
     dd { margin: 0; font-variant-numeric: tabular-nums; }
+    .change-summary { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
+    .change-summary strong { display: block; margin-bottom: 6px; }
     .card-action { display: inline-block; margin-top: 16px; font-weight: 700; }
     nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     a { color: var(--accent); text-underline-offset: 3px; }
@@ -54,6 +56,7 @@
       <p class="lead">ARK公式holdingsを日次snapshotとして保存し、取得時点・原本・監査結果を追跡します。投資テーマや将来予測ではなく、観測データを表示する入口です。</p>
       <div class="meta">
         <span class="chip" id="as-of">as-of: loading</span>
+        <span class="chip" id="change-period">previous: loading</span>
         <span class="chip" id="snapshot-count">snapshots: loading</span>
         <span class="chip">6 funds</span>
       </div>
@@ -69,15 +72,19 @@
       <a href="https://github.com/KAFKA2306/etf/blob/main/docs/data-api.md">Data API</a>
     </nav>
 
-    <footer>Source metadata and audit values are bundled from the repository's committed <code>data/ark-views/latest.json</code> at deployment time.</footer>
+    <footer>Source metadata and audit values are bundled from the repository's committed <code>data/ark-views/latest.json</code> and <code>data/ark-views/changes.json</code> at deployment time.</footer>
   </main>
 
   <script>
     const latestUrl = './data/latest.json';
+    const changesUrl = './data/changes.json';
     const funds = document.getElementById('funds');
 
-    function card(ticker, fund) {
+    function card(ticker, fund, change) {
       const audit = fund.audit || {};
+      const additions = change?.additions?.length ?? 0;
+      const removals = change?.removals?.length ?? 0;
+      const weightChanges = change?.weight_changes?.length ?? 0;
       const sourceAction = fund.source_csv_url
         ? `<a class="card-action" href="${fund.source_csv_url}" target="_blank" rel="noopener noreferrer">ARK公式CSVを確認 →</a>`
         : '<span class="card-action">公式CSV: unavailable</span>';
@@ -86,6 +93,10 @@
           <div class="ticker">
             <h2>${ticker}</h2>
             <span class="status">AUDITED</span>
+          </div>
+          <div class="change-summary">
+            <strong>前回からの変更</strong>
+            <span>追加 ${additions} / 削除 ${removals} / 構成比変更 ${weightChanges}</span>
           </div>
           <dl>
             <dt>holdings</dt><dd>${fund.row_count ?? '—'}</dd>
@@ -97,19 +108,27 @@
         </article>`;
     }
 
-    fetch(latestUrl, { cache: 'no-store' })
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
+    Promise.all([
+      fetch(latestUrl, { cache: 'no-store' }),
+      fetch(changesUrl, { cache: 'no-store' })
+    ])
+      .then(async ([latestResponse, changesResponse]) => {
+        if (!latestResponse.ok) throw new Error(`latest HTTP ${latestResponse.status}`);
+        if (!changesResponse.ok) throw new Error(`changes HTTP ${changesResponse.status}`);
+        return [await latestResponse.json(), await changesResponse.json()];
       })
-      .then(data => {
+      .then(([data, changes]) => {
         document.getElementById('as-of').textContent = `as-of: ${data.as_of ?? 'unknown'}`;
+        document.getElementById('change-period').textContent = `previous: ${changes.previous_as_of ?? 'unknown'}`;
         document.getElementById('snapshot-count').textContent = `snapshots: ${data.snapshot_count ?? 'unknown'}`;
-        funds.innerHTML = Object.entries(data.funds || {}).map(([ticker, fund]) => card(ticker, fund)).join('');
+        funds.innerHTML = Object.entries(data.funds || {})
+          .map(([ticker, fund]) => card(ticker, fund, changes.funds?.[ticker]))
+          .join('');
       })
       .catch(error => {
         funds.innerHTML = `<div class="error">Latest holdings view could not be loaded (${error.message}). Repository links remain available below.</div>`;
         document.getElementById('as-of').textContent = 'as-of: unavailable';
+        document.getElementById('change-period').textContent = 'previous: unavailable';
         document.getElementById('snapshot-count').textContent = 'snapshots: unavailable';
       });
   </script>
