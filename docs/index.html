@@ -39,6 +39,7 @@
     dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 18px 0 0; }
     dt { color: var(--muted); }
     dd { margin: 0; font-variant-numeric: tabular-nums; }
+    .card-action { display: inline-block; margin-top: 16px; font-weight: 700; }
     nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     a { color: var(--accent); text-underline-offset: 3px; }
     .error { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 20px; color: var(--muted); }
@@ -77,6 +78,9 @@
 
     function card(ticker, fund) {
       const audit = fund.audit || {};
+      const sourceAction = fund.source_csv_url
+        ? `<a class="card-action" href="${fund.source_csv_url}" target="_blank" rel="noopener noreferrer">ARK公式CSVを確認 →</a>`
+        : '<span class="card-action">公式CSV: unavailable</span>';
       return `
         <article class="card">
           <div class="ticker">
@@ -89,6 +93,7 @@
             <dt>duplicate IDs</dt><dd>${audit.duplicate_identity_count ?? '—'}</dd>
             <dt>missing IDs</dt><dd>${audit.missing_identity_count ?? '—'}</dd>
           </dl>
+          ${sourceAction}
         </article>`;
     }
 

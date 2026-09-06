@@ -7,12 +7,16 @@ on:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
       - 'test_ark_holdings.py'
+      - 'tests/test_pages_ui.py'
+      - 'docs/index.html'
       - '.github/workflows/ark-holdings-source.yml'
   pull_request:
     paths:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
       - 'test_ark_holdings.py'
+      - 'tests/test_pages_ui.py'
+      - 'docs/index.html'
       - '.github/workflows/ark-holdings-source.yml'
   schedule:
     - cron: '30 10 * * 2-6'
@@ -32,7 +36,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Unit tests
-        run: python -m unittest -v test_ark_holdings.py
+        run: |
+          python -m unittest -v test_ark_holdings.py
+          python -m unittest -v tests/test_pages_ui.py
       - name: Verify official ARK sources
         if: github.event_name == 'pull_request'
         run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings
