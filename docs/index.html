@@ -8,44 +8,52 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f4f2ee;
-      --surface: #fffdf8;
-      --text: #22201d;
-      --muted: #706b64;
-      --line: #d9d4cc;
-      --accent: #55705f;
-      --ok: #3e6651;
+      --bg: #F7F5EF;
+      --surface: #FFFFFF;
+      --text: #17233F;
+      --muted: #667085;
+      --line: #D9D6CE;
+      --accent: #2563EB;
+      --ok: #15803D;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, "Noto Sans JP", system-ui, sans-serif;
+      font-size: 14px;
       line-height: 1.6;
     }
     main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 72px; }
-    header { margin-bottom: 32px; }
-    .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { margin: 8px 0 8px; font-size: clamp(2rem, 6vw, 4.25rem); line-height: 1; letter-spacing: -.04em; }
+    header { margin-bottom: 24px; }
+    .eyebrow { color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 4.25rem); line-height: 1; letter-spacing: -.04em; }
     .lead { max-width: 720px; margin: 0; color: var(--muted); }
-    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
-    .chip { border: 1px solid var(--line); border-radius: 999px; background: var(--surface); padding: 6px 10px; font-size: .86rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .chip { border: 1px solid var(--line); border-radius: 2px; background: var(--surface); padding: 6px 10px; font-size: 12px; }
+    .summary { margin: 0 0 24px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); padding: 16px; }
+    .summary h2 { margin: 0 0 4px; font-size: 20px; }
+    .summary p { margin: 0; color: var(--muted); }
+    .summary-stats { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 12px; }
+    .summary-stat strong { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+    .summary-action { display: inline-block; min-height: 44px; margin-top: 12px; padding: 10px 12px; border-radius: 2px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-    .card { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 20px; }
+    .card { border: 1px solid var(--line); border-radius: 2px; background: var(--surface); padding: 20px; }
     .ticker { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-    .ticker h2 { margin: 0; font-size: 1.45rem; }
-    .status { color: var(--ok); font-size: .82rem; font-weight: 700; }
+    .ticker h2 { margin: 0; font-size: 20px; }
+    .status { color: var(--ok); font-size: 12px; font-weight: 700; }
     dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 18px 0 0; }
     dt { color: var(--muted); }
     dd { margin: 0; font-variant-numeric: tabular-nums; }
     .change-summary { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); }
     .change-summary strong { display: block; margin-bottom: 6px; }
-    .card-action { display: inline-block; margin-top: 16px; font-weight: 700; }
+    .card-action { display: inline-block; min-height: 44px; margin-top: 12px; padding: 10px 0; font-weight: 700; }
     nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
     a { color: var(--accent); text-underline-offset: 3px; }
-    .error { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 20px; color: var(--muted); }
-    footer { margin-top: 36px; color: var(--muted); font-size: .86rem; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .error { border: 1px solid var(--line); border-radius: 2px; background: var(--surface); padding: 20px; color: var(--muted); }
+    footer { margin-top: 36px; color: var(--muted); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -53,7 +61,7 @@
     <header>
       <div class="eyebrow">KAFKA2306 / ETF</div>
       <h1>ARK ETF Holdings</h1>
-      <p class="lead">ARK公式holdingsを日次snapshotとして保存し、取得時点・原本・監査結果を追跡します。投資テーマや将来予測ではなく、観測データを表示する入口です。</p>
+      <p class="lead">ARK公式holdingsの前回差分を先に確認し、変化が大きいETFから原本までたどれます。観測データと監査結果を表示し、投資テーマや将来予測は混ぜません。</p>
       <div class="meta">
         <span class="chip" id="as-of">as-of: loading</span>
         <span class="chip" id="change-period">previous: loading</span>
@@ -61,6 +69,17 @@
         <span class="chip">6 funds</span>
       </div>
     </header>
+
+    <section class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">前回から何が変わったか</h2>
+      <p id="summary-copy">最新の差分を読み込み中です。</p>
+      <div class="summary-stats" aria-live="polite">
+        <div class="summary-stat"><strong id="total-additions">—</strong><span>追加</span></div>
+        <div class="summary-stat"><strong id="total-removals">—</strong><span>削除</span></div>
+        <div class="summary-stat"><strong id="total-weight-changes">—</strong><span>構成比変更</span></div>
+      </div>
+      <a class="summary-action" id="most-changed-action" href="#funds">ETF別の差分を見る</a>
+    </section>
 
     <section id="funds" class="grid" aria-live="polite"></section>
 
@@ -89,7 +108,7 @@
         ? `<a class="card-action" href="${fund.source_csv_url}" target="_blank" rel="noopener noreferrer">ARK公式CSVを確認 →</a>`
         : '<span class="card-action">公式CSV: unavailable</span>';
       return `
-        <article class="card">
+        <article class="card" id="fund-${ticker}">
           <div class="ticker">
             <h2>${ticker}</h2>
             <span class="status">AUDITED</span>
@@ -121,6 +140,32 @@
         document.getElementById('as-of').textContent = `as-of: ${data.as_of ?? 'unknown'}`;
         document.getElementById('change-period').textContent = `previous: ${changes.previous_as_of ?? 'unknown'}`;
         document.getElementById('snapshot-count').textContent = `snapshots: ${data.snapshot_count ?? 'unknown'}`;
+
+        const changeEntries = Object.entries(changes.funds || {});
+        const totals = changeEntries.reduce((acc, [, change]) => ({
+          additions: acc.additions + (change?.additions?.length ?? 0),
+          removals: acc.removals + (change?.removals?.length ?? 0),
+          weightChanges: acc.weightChanges + (change?.weight_changes?.length ?? 0)
+        }), { additions: 0, removals: 0, weightChanges: 0 });
+        const mostChanged = changeEntries
+          .map(([ticker, change]) => ({
+            ticker,
+            count: (change?.additions?.length ?? 0) + (change?.removals?.length ?? 0) + (change?.weight_changes?.length ?? 0)
+          }))
+          .sort((a, b) => b.count - a.count || a.ticker.localeCompare(b.ticker))[0];
+
+        document.getElementById('total-additions').textContent = totals.additions;
+        document.getElementById('total-removals').textContent = totals.removals;
+        document.getElementById('total-weight-changes').textContent = totals.weightChanges;
+        document.getElementById('summary-copy').textContent = mostChanged
+          ? `最も変更件数が多いのは ${mostChanged.ticker}（${mostChanged.count}件）です。`
+          : '比較できる前回snapshotがありません。';
+        if (mostChanged) {
+          const action = document.getElementById('most-changed-action');
+          action.href = `#fund-${mostChanged.ticker}`;
+          action.textContent = `${mostChanged.ticker} の差分を見る`;
+        }
+
         funds.innerHTML = Object.entries(data.funds || {})
           .map(([ticker, fund]) => card(ticker, fund, changes.funds?.[ticker]))
           .join('');
@@ -130,6 +175,10 @@
         document.getElementById('as-of').textContent = 'as-of: unavailable';
         document.getElementById('change-period').textContent = 'previous: unavailable';
         document.getElementById('snapshot-count').textContent = 'snapshots: unavailable';
+        document.getElementById('summary-copy').textContent = '前回差分を取得できませんでした。';
+        document.getElementById('total-additions').textContent = '—';
+        document.getElementById('total-removals').textContent = '—';
+        document.getElementById('total-weight-changes').textContent = '—';
       });
   </script>
 </body>
