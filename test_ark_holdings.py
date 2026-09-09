@@ -1,10 +1,9 @@
 import json
 import unittest
-from datetime import date, timedelta
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from build_ark_views import FUNDS, REQUIRED_TRADING_DAYS, build, build_readiness
+from build_ark_views import FUNDS, build, build_readiness
 from collect_ark_holdings import CANDIDATE_FILES, audit_rows, parse_csv, write_snapshot
 
 
@@ -127,20 +126,17 @@ class ArkHoldingsTest(unittest.TestCase):
             self.assertEqual(overlap["matrix"]["ARKK"]["ARKX"], 0)
             self.assertFalse(readiness["complete"])
             self.assertEqual(readiness["observed_trading_days"], 2)
-            self.assertEqual(readiness["remaining_trading_days"], 58)
+            self.assertNotIn("required_trading_days", readiness)
+            self.assertNotIn("remaining_trading_days", readiness)
             self.assertFalse(readiness["checks"]["all_daily_sets_have_six_funds"])
 
-    def test_readiness_completes_only_after_60_clean_six_fund_days(self):
-        start = date(2026, 1, 2)
-        history = []
-        for offset in range(REQUIRED_TRADING_DAYS):
-            day = start + timedelta(days=offset)
-            history.append(complete_payload(day.isoformat(), f"{offset:02d}"))
-        readiness = build_readiness(history)
+    def test_readiness_completes_with_one_clean_six_fund_day(self):
+        readiness = build_readiness([complete_payload("2026-01-02", "a")])
         self.assertTrue(readiness["complete"])
-        self.assertEqual(readiness["observed_trading_days"], REQUIRED_TRADING_DAYS)
-        self.assertEqual(readiness["remaining_trading_days"], 0)
-        self.assertEqual(readiness["complete_daily_sets"], REQUIRED_TRADING_DAYS)
+        self.assertEqual(readiness["observed_trading_days"], 1)
+        self.assertEqual(readiness["complete_daily_sets"], 1)
+        self.assertNotIn("required_trading_days", readiness)
+        self.assertNotIn("remaining_trading_days", readiness)
         self.assertTrue(all(readiness["checks"].values()))
 
     def test_readiness_fails_closed_on_missing_provenance(self):
