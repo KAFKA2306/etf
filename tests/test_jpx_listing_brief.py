@@ -6,54 +6,20 @@ from pathlib import Path
 from scripts.build_jpx_listing_brief import build_brief, render_markdown
 
 
-def record(code, name, fee=None, active=False, index_name=None):
-    return {
-        "listing_date": "2026-01-01",
-        "code": code,
-        "fund_name": name,
-        "index_name": index_name,
-        "management_company": "Example Asset",
-        "trading_unit": 1,
-        "trust_fee_percent": fee,
-        "indicative_nav": True,
-        "active_etf": active,
-    }
+FIXTURES = Path(__file__).parent / "fixtures" / "jpx_listing_brief"
+WATCHLISTS = Path(__file__).parents[1] / "config" / "jpx-watchlists.v1.json"
 
 
 class JpxListingBriefTests(unittest.TestCase):
-    def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self.tmp.name)
-        self.previous = self.root / "previous.json"
-        self.current = self.root / "current.json"
-        self.previous_manifest = self.root / "previous-manifest.json"
-        self.current_manifest = self.root / "current-manifest.json"
-        self.watchlists = self.root / "watchlists.json"
-        self.previous.write_text(json.dumps({
-            "source_url": "https://www.jpx.co.jp/example",
-            "retrieved_at": "2026-01-01T00:00:00+09:00",
-            "records": [record("100A", "Changed", 0.1), record("200A", "Removed", None), record("400A", "Stable", 0.4)],
-        }), encoding="utf-8")
-        self.current.write_text(json.dumps({
-            "source_url": "https://www.jpx.co.jp/example",
-            "retrieved_at": "2026-02-01T00:00:00+09:00",
-            "records": [record("100A", "Changed", 0.2), record("300A", "Added", None), record("400A", "Stable", 0.4)],
-        }), encoding="utf-8")
-        self.previous_manifest.write_text('{"snapshot":"previous"}\n', encoding="utf-8")
-        self.current_manifest.write_text('{"snapshot":"current"}\n', encoding="utf-8")
-        self.watchlists.write_text(json.dumps({
-            "schema_version": "etf.jpx-watchlists.v1",
-            "watchlists": {
-                "all": {"codes": [], "management_companies": [], "active_etf": None},
-                "selected": {"codes": ["100A", "300A"], "management_companies": [], "active_etf": None},
-            },
-        }), encoding="utf-8")
-
-    def tearDown(self):
-        self.tmp.cleanup()
-
-    def build(self, name="all"):
-        return build_brief(self.previous, self.current, self.watchlists, name, self.previous_manifest, self.current_manifest)
+    def build(self, name="all", watchlists=WATCHLISTS):
+        return build_brief(
+            FIXTURES / "previous.json",
+            FIXTURES / "current.json",
+            watchlists,
+            name,
+            FIXTURES / "previous-manifest.json",
+            FIXTURES / "current-manifest.json",
+        )
 
     def test_classifies_all_four_states_without_inference(self):
         brief = self.build()
@@ -68,7 +34,16 @@ class JpxListingBriefTests(unittest.TestCase):
         self.assertIn("does not assert delisting", brief["semantics"]["removed_from_current_snapshot"])
 
     def test_watchlist_is_config_only_and_provenance_is_complete(self):
-        brief = self.build("selected")
+        config = json.loads(WATCHLISTS.read_text(encoding="utf-8"))
+        config["watchlists"]["selected"] = {
+            "codes": ["100A", "300A"],
+            "management_companies": [],
+            "active_etf": None,
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            temp_config = Path(tmp) / "watchlists.json"
+            temp_config.write_text(json.dumps(config), encoding="utf-8")
+            brief = self.build("selected", temp_config)
         self.assertEqual([item["code"] for item in brief["changes"]], ["100A", "300A"])
         for side in ("previous", "current"):
             provenance = brief["provenance"][side]
