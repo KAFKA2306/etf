@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KAFKA2306/etf/blob/main/docs/schemas/jpx-brief-event.v1.json",
+  "title": "JPX watchlist brief event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event", "watchlist", "brief_schema_version"],
+  "properties": {
+    "schema_version": {"const": "etf.jpx-brief-event.v1"},
+    "event": {"enum": ["brief_generated", "brief_viewed", "cta_selected"]},
+    "watchlist": {"type": "string", "minLength": 1},
+    "brief_schema_version": {"const": "etf.jpx-listing-brief.v1"}
+  }
+}

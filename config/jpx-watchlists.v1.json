@@ -1,0 +1,10 @@
+{
+  "schema_version": "etf.jpx-watchlists.v1",
+  "watchlists": {
+    "all": {
+      "codes": [],
+      "management_companies": [],
+      "active_etf": null
+    }
+  }
+}

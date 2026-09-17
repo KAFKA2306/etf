@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "source_url": "https://www.jpx.co.jp/example",
+  "retrieved_at": "2026-02-01T00:00:00+09:00",
+  "records": [
+    {"listing_date":"2026-01-01","code":"100A","fund_name":"Changed","index_name":null,"management_company":"Example Asset","trading_unit":1,"trust_fee_percent":0.2,"indicative_nav":true,"active_etf":false},
+    {"listing_date":"2026-01-01","code":"300A","fund_name":"Added","index_name":null,"management_company":"Example Asset","trading_unit":1,"trust_fee_percent":null,"indicative_nav":true,"active_etf":false},
+    {"listing_date":"2026-01-01","code":"400A","fund_name":"Stable","index_name":null,"management_company":"Example Asset","trading_unit":1,"trust_fee_percent":0.4,"indicative_nav":true,"active_etf":false}
+  ]
+}
