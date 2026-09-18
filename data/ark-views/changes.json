@@ -1,6 +1,6 @@
 {
-  "as_of": "09/17/2026",
-  "previous_as_of": "09/16/2026",
+  "as_of": "09/18/2026",
+  "previous_as_of": "09/17/2026",
   "funds": {
     "ARKK": {
       "additions": [],
@@ -8,198 +8,208 @@
       "weight_changes": [
         {
           "security": "00214Q724",
-          "previous_weight": 0.31,
-          "weight": 0.32
+          "previous_weight": 0.32,
+          "weight": 0.31
         },
         {
           "security": "007903107",
-          "previous_weight": 2.57,
-          "weight": 2.64
+          "previous_weight": 2.64,
+          "weight": 2.67
+        },
+        {
+          "security": "02079K107",
+          "previous_weight": 1.54,
+          "weight": 1.48
+        },
+        {
+          "security": "023135106",
+          "previous_weight": 2.37,
+          "weight": 2.3
         },
         {
           "security": "03945R102",
-          "previous_weight": 1.23,
-          "weight": 1.18
+          "previous_weight": 1.18,
+          "weight": 1.16
+        },
+        {
+          "security": "05605H100",
+          "previous_weight": 0.84,
+          "weight": 0.8
         },
         {
           "security": "07373V105",
-          "previous_weight": 2.3,
-          "weight": 2.32
+          "previous_weight": 2.32,
+          "weight": 2.35
         },
         {
           "security": "09175A206",
-          "previous_weight": 1.89,
-          "weight": 1.84
+          "previous_weight": 1.84,
+          "weight": 1.83
         },
         {
           "security": "11135F101",
-          "previous_weight": 1.65,
-          "weight": 1.67
+          "previous_weight": 1.67,
+          "weight": 1.62
         },
         {
           "security": "15675D103",
-          "previous_weight": 2.52,
-          "weight": 2.63
-        },
-        {
-          "security": "157085101",
-          "previous_weight": 0.35,
-          "weight": 0.36
+          "previous_weight": 2.63,
+          "weight": 2.55
         },
         {
           "security": "172573107",
-          "previous_weight": 5.13,
-          "weight": 4.84
+          "previous_weight": 4.84,
+          "weight": 4.86
+        },
+        {
+          "security": "18915M107",
+          "previous_weight": 1.4,
+          "weight": 1.37
         },
         {
           "security": "19260Q107",
-          "previous_weight": 4.34,
-          "weight": 4.2
+          "previous_weight": 4.2,
+          "weight": 4.21
         },
         {
           "security": "21873S108",
-          "previous_weight": 2.36,
-          "weight": 2.46
+          "previous_weight": 2.46,
+          "weight": 2.44
         },
         {
           "security": "30303M102",
-          "previous_weight": 2.0,
-          "weight": 2.03
+          "previous_weight": 2.03,
+          "weight": 1.95
         },
         {
           "security": "452327109",
-          "previous_weight": 1.14,
-          "weight": 1.19
+          "previous_weight": 1.19,
+          "weight": 1.21
         },
         {
           "security": "45826J105",
-          "previous_weight": 1.74,
-          "weight": 1.56
+          "previous_weight": 1.56,
+          "weight": 1.53
         },
         {
           "security": "50077B207",
-          "previous_weight": 1.01,
-          "weight": 1.02
+          "previous_weight": 1.02,
+          "weight": 0.97
         },
         {
           "security": "532457108",
-          "previous_weight": 0.49,
-          "weight": 0.5
+          "previous_weight": 0.5,
+          "weight": 0.48
         },
         {
           "security": "632307104",
-          "previous_weight": 1.12,
-          "weight": 1.11
+          "previous_weight": 1.11,
+          "weight": 1.12
         },
         {
           "security": "67066G104",
-          "previous_weight": 2.46,
-          "weight": 2.51
+          "previous_weight": 2.51,
+          "weight": 2.44
         },
         {
           "security": "69404D108",
-          "previous_weight": 0.26,
-          "weight": 0.27
+          "previous_weight": 0.27,
+          "weight": 0.26
         },
         {
           "security": "69608A108",
-          "previous_weight": 2.65,
-          "weight": 2.71
+          "previous_weight": 2.71,
+          "weight": 2.6
         },
         {
           "security": "75629V104",
-          "previous_weight": 1.01,
-          "weight": 1.0
-        },
-        {
-          "security": "770700102",
-          "previous_weight": 4.05,
-          "weight": 3.87
+          "previous_weight": 1.0,
+          "weight": 1.06
         },
         {
           "security": "773121108",
-          "previous_weight": 1.02,
-          "weight": 1.04
+          "previous_weight": 1.04,
+          "weight": 1.05
         },
         {
           "security": "81663L200",
-          "previous_weight": 1.38,
-          "weight": 1.44
+          "previous_weight": 1.44,
+          "weight": 1.47
         },
         {
           "security": "82509L107",
-          "previous_weight": 3.03,
-          "weight": 3.06
+          "previous_weight": 3.06,
+          "weight": 2.88
+        },
+        {
+          "security": "83406F102",
+          "previous_weight": 0.58,
+          "weight": 0.55
         },
         {
           "security": "84615Q103",
-          "previous_weight": 6.28,
-          "weight": 6.68
+          "previous_weight": 6.68,
+          "weight": 6.51
         },
         {
           "security": "852234103",
-          "previous_weight": 2.45,
-          "weight": 2.43
+          "previous_weight": 2.43,
+          "weight": 2.3
         },
         {
           "security": "874039100",
-          "previous_weight": 0.98,
-          "weight": 1.0
+          "previous_weight": 1.0,
+          "weight": 0.98
         },
         {
           "security": "88023B103",
-          "previous_weight": 5.5,
-          "weight": 5.65
+          "previous_weight": 5.65,
+          "weight": 6.16
         },
         {
           "security": "88025U109",
-          "previous_weight": 3.45,
-          "weight": 3.41
+          "previous_weight": 3.41,
+          "weight": 3.43
         },
         {
           "security": "880770102",
-          "previous_weight": 0.88,
-          "weight": 0.91
+          "previous_weight": 0.91,
+          "weight": 0.89
         },
         {
           "security": "88160R101",
-          "previous_weight": 9.51,
-          "weight": 9.66
+          "previous_weight": 9.66,
+          "weight": 9.38
         },
         {
           "security": "90184D100",
-          "previous_weight": 3.43,
-          "weight": 3.59
-        },
-        {
-          "security": "92337F107",
-          "previous_weight": 0.77,
-          "weight": 0.75
+          "previous_weight": 3.59,
+          "weight": 3.71
         },
         {
           "security": "98386P102",
-          "previous_weight": 1.06,
-          "weight": 1.04
+          "previous_weight": 1.04,
+          "weight": 1.1
         },
         {
           "security": "G16910120",
-          "previous_weight": 2.19,
-          "weight": 2.01
+          "previous_weight": 2.01,
+          "weight": 2.07
         },
         {
           "security": "H17182108",
-          "previous_weight": 4.46,
-          "weight": 4.54
+          "previous_weight": 4.54,
+          "weight": 4.73
         },
         {
           "security": "PPOPENAIC",
-          "previous_weight": 2.69,
-          "weight": 2.38
+          "previous_weight": 2.38,
+          "weight": 2.2
         },
         {
           "security": "X9USDGSFT",
-          "previous_weight": 1.58,
-          "weight": 1.42
+          "previous_weight": 1.42,
+          "weight": 2.02
         }
       ]
     },
@@ -209,173 +219,178 @@
       "weight_changes": [
         {
           "security": "007903107",
-          "previous_weight": 4.21,
-          "weight": 4.27
+          "previous_weight": 4.27,
+          "weight": 4.42
         },
         {
           "security": "008073108",
-          "previous_weight": 2.88,
-          "weight": 2.86
+          "previous_weight": 2.86,
+          "weight": 2.91
         },
         {
           "security": "02079K107",
-          "previous_weight": 4.77,
-          "weight": 4.72
+          "previous_weight": 4.72,
+          "weight": 4.66
         },
         {
           "security": "02156V109",
-          "previous_weight": 0.86,
-          "weight": 0.85
+          "previous_weight": 0.85,
+          "weight": 0.92
         },
         {
           "security": "023135106",
-          "previous_weight": 3.52,
-          "weight": 3.48
+          "previous_weight": 3.48,
+          "weight": 3.46
         },
         {
           "security": "03945R102",
-          "previous_weight": 2.62,
-          "weight": 2.49
+          "previous_weight": 2.49,
+          "weight": 2.51
         },
         {
           "security": "051774107",
-          "previous_weight": 1.75,
-          "weight": 1.73
+          "previous_weight": 1.73,
+          "weight": 1.72
         },
         {
           "security": "05605H100",
-          "previous_weight": 1.59,
-          "weight": 1.58
+          "previous_weight": 1.58,
+          "weight": 1.54
         },
         {
           "security": "05606L100",
-          "previous_weight": 0.87,
-          "weight": 0.86
-        },
-        {
-          "security": "056752108",
-          "previous_weight": 0.9,
-          "weight": 0.88
-        },
-        {
-          "security": "11135F101",
-          "previous_weight": 2.21,
-          "weight": 2.2
-        },
-        {
-          "security": "13321L108",
-          "previous_weight": 1.56,
-          "weight": 1.55
-        },
-        {
-          "security": "244199105",
-          "previous_weight": 3.03,
-          "weight": 2.96
-        },
-        {
-          "security": "25809K105",
-          "previous_weight": 1.58,
-          "weight": 1.56
-        },
-        {
-          "security": "46120E602",
-          "previous_weight": 1.34,
-          "weight": 1.35
-        },
-        {
-          "security": "46125A100",
-          "previous_weight": 1.74,
-          "weight": 1.73
-        },
-        {
-          "security": "500081104",
-          "previous_weight": 0.79,
-          "weight": 0.74
-        },
-        {
-          "security": "500458401",
-          "previous_weight": 1.92,
-          "weight": 1.89
-        },
-        {
-          "security": "50077B207",
-          "previous_weight": 5.73,
-          "weight": 5.71
-        },
-        {
-          "security": "67066G104",
-          "previous_weight": 4.89,
-          "weight": 4.91
-        },
-        {
-          "security": "69608A108",
-          "previous_weight": 4.6,
-          "weight": 4.63
-        },
-        {
-          "security": "732908108",
-          "previous_weight": 1.0,
-          "weight": 0.98
-        },
-        {
-          "security": "773121108",
-          "previous_weight": 3.74,
-          "weight": 3.73
-        },
-        {
-          "security": "84615Q103",
-          "previous_weight": 8.12,
-          "weight": 8.5
-        },
-        {
-          "security": "871607107",
-          "previous_weight": 0.85,
+          "previous_weight": 0.86,
           "weight": 0.87
         },
         {
+          "security": "056752108",
+          "previous_weight": 0.88,
+          "weight": 0.87
+        },
+        {
+          "security": "11135F101",
+          "previous_weight": 2.2,
+          "weight": 2.19
+        },
+        {
+          "security": "13321L108",
+          "previous_weight": 1.55,
+          "weight": 1.54
+        },
+        {
+          "security": "149123101",
+          "previous_weight": 1.35,
+          "weight": 1.34
+        },
+        {
+          "security": "244199105",
+          "previous_weight": 2.96,
+          "weight": 2.95
+        },
+        {
+          "security": "25809K105",
+          "previous_weight": 1.56,
+          "weight": 1.51
+        },
+        {
+          "security": "46120E602",
+          "previous_weight": 1.35,
+          "weight": 1.32
+        },
+        {
+          "security": "46125A100",
+          "previous_weight": 1.73,
+          "weight": 1.8
+        },
+        {
+          "security": "500081104",
+          "previous_weight": 0.74,
+          "weight": 0.77
+        },
+        {
+          "security": "500458401",
+          "previous_weight": 1.89,
+          "weight": 1.87
+        },
+        {
+          "security": "50077B207",
+          "previous_weight": 5.71,
+          "weight": 5.57
+        },
+        {
+          "security": "502431109",
+          "previous_weight": 2.9,
+          "weight": 2.82
+        },
+        {
+          "security": "67066G104",
+          "previous_weight": 4.91,
+          "weight": 4.9
+        },
+        {
+          "security": "69608A108",
+          "previous_weight": 4.63,
+          "weight": 4.56
+        },
+        {
+          "security": "732908108",
+          "previous_weight": 0.98,
+          "weight": 1.0
+        },
+        {
+          "security": "773121108",
+          "previous_weight": 3.73,
+          "weight": 3.87
+        },
+        {
+          "security": "87151X101",
+          "previous_weight": 1.48,
+          "weight": 1.5
+        },
+        {
+          "security": "871607107",
+          "previous_weight": 0.87,
+          "weight": 0.85
+        },
+        {
           "security": "874039100",
-          "previous_weight": 3.57,
-          "weight": 3.6
+          "previous_weight": 3.6,
+          "weight": 3.61
         },
         {
           "security": "880770102",
-          "previous_weight": 5.81,
-          "weight": 5.93
+          "previous_weight": 5.93,
+          "weight": 5.98
         },
         {
           "security": "88160R101",
-          "previous_weight": 10.8,
-          "weight": 10.81
+          "previous_weight": 10.81,
+          "weight": 10.76
         },
         {
           "security": "896239100",
-          "previous_weight": 2.11,
-          "weight": 2.05
+          "previous_weight": 2.05,
+          "weight": 2.0
         },
         {
           "security": "950915108",
-          "previous_weight": 1.07,
-          "weight": 1.05
+          "previous_weight": 1.05,
+          "weight": 1.04
         },
         {
           "security": "98386P102",
-          "previous_weight": 1.2,
-          "weight": 1.16
+          "previous_weight": 1.16,
+          "weight": 1.26
         },
         {
           "security": "G65163100",
-          "previous_weight": 1.07,
-          "weight": 1.06
+          "previous_weight": 1.06,
+          "weight": 1.05
         },
         {
           "security": "M3760D101",
-          "previous_weight": 1.15,
-          "weight": 1.16
-        },
-        {
-          "security": "X9USDGSFT",
-          "previous_weight": 0.14,
-          "weight": 0.15
+          "previous_weight": 1.16,
+          "weight": 1.15
         }
       ]
     },
@@ -385,183 +400,193 @@
       "weight_changes": [
         {
           "security": "007903107",
-          "previous_weight": 3.82,
-          "weight": 3.92
+          "previous_weight": 3.92,
+          "weight": 4.07
+        },
+        {
+          "security": "009066101",
+          "previous_weight": 0.59,
+          "weight": 0.57
         },
         {
           "security": "02079K107",
-          "previous_weight": 3.44,
-          "weight": 3.45
+          "previous_weight": 3.45,
+          "weight": 3.41
         },
         {
-          "security": "09175A206",
-          "previous_weight": 1.97,
-          "weight": 1.92
-        },
-        {
-          "security": "11135F101",
-          "previous_weight": 2.31,
-          "weight": 2.34
-        },
-        {
-          "security": "15675D103",
-          "previous_weight": 2.46,
-          "weight": 2.57
-        },
-        {
-          "security": "172573107",
-          "previous_weight": 4.54,
-          "weight": 4.26
-        },
-        {
-          "security": "19260Q107",
-          "previous_weight": 3.67,
-          "weight": 3.54
-        },
-        {
-          "security": "21873S108",
-          "previous_weight": 3.37,
-          "weight": 3.5
-        },
-        {
-          "security": "22788C105",
-          "previous_weight": 2.41,
-          "weight": 2.42
-        },
-        {
-          "security": "23804L103",
-          "previous_weight": 2.17,
-          "weight": 2.2
-        },
-        {
-          "security": "25809K105",
-          "previous_weight": 1.02,
-          "weight": 1.03
-        },
-        {
-          "security": "26142V105",
-          "previous_weight": 0.85,
-          "weight": 0.84
-        },
-        {
-          "security": "30303M102",
-          "previous_weight": 3.59,
-          "weight": 3.64
-        },
-        {
-          "security": "316841105",
-          "previous_weight": 1.05,
-          "weight": 1.02
-        },
-        {
-          "security": "58733R102",
-          "previous_weight": 1.12,
-          "weight": 1.13
-        },
-        {
-          "security": "64110L106",
-          "previous_weight": 1.14,
-          "weight": 1.13
-        },
-        {
-          "security": "67066G104",
-          "previous_weight": 3.31,
-          "weight": 3.37
-        },
-        {
-          "security": "69608A108",
-          "previous_weight": 2.6,
-          "weight": 2.65
-        },
-        {
-          "security": "74624M102",
-          "previous_weight": 1.76,
-          "weight": 1.78
-        },
-        {
-          "security": "770700102",
-          "previous_weight": 4.95,
-          "weight": 4.62
-        },
-        {
-          "security": "771049103",
-          "previous_weight": 2.29,
-          "weight": 2.18
-        },
-        {
-          "security": "781154109",
-          "previous_weight": 1.89,
-          "weight": 1.93
-        },
-        {
-          "security": "82509L107",
-          "previous_weight": 3.7,
+          "security": "023135106",
+          "previous_weight": 3.74,
           "weight": 3.73
         },
         {
-          "security": "833445109",
-          "previous_weight": 0.97,
+          "security": "09175A206",
+          "previous_weight": 1.92,
+          "weight": 1.96
+        },
+        {
+          "security": "11135F101",
+          "previous_weight": 2.34,
+          "weight": 2.33
+        },
+        {
+          "security": "15675D103",
+          "previous_weight": 2.57,
+          "weight": 2.56
+        },
+        {
+          "security": "172573107",
+          "previous_weight": 4.26,
+          "weight": 4.4
+        },
+        {
+          "security": "18915M107",
+          "previous_weight": 2.27,
+          "weight": 2.28
+        },
+        {
+          "security": "19260Q107",
+          "previous_weight": 3.54,
+          "weight": 3.65
+        },
+        {
+          "security": "21873S108",
+          "previous_weight": 3.5,
+          "weight": 3.47
+        },
+        {
+          "security": "22788C105",
+          "previous_weight": 2.42,
+          "weight": 2.41
+        },
+        {
+          "security": "23804L103",
+          "previous_weight": 2.2,
+          "weight": 2.19
+        },
+        {
+          "security": "25809K105",
+          "previous_weight": 1.03,
+          "weight": 0.99
+        },
+        {
+          "security": "26142V105",
+          "previous_weight": 0.84,
+          "weight": 0.76
+        },
+        {
+          "security": "30303M102",
+          "previous_weight": 3.64,
+          "weight": 3.6
+        },
+        {
+          "security": "316841105",
+          "previous_weight": 1.02,
           "weight": 1.01
         },
         {
-          "security": "84615Q103",
-          "previous_weight": 4.44,
-          "weight": 4.71
+          "security": "37637K108",
+          "previous_weight": 1.7,
+          "weight": 1.71
+        },
+        {
+          "security": "58733R102",
+          "previous_weight": 1.13,
+          "weight": 1.1
+        },
+        {
+          "security": "64110L106",
+          "previous_weight": 1.13,
+          "weight": 1.09
+        },
+        {
+          "security": "69608A108",
+          "previous_weight": 2.65,
+          "weight": 2.62
+        },
+        {
+          "security": "74624M102",
+          "previous_weight": 1.78,
+          "weight": 1.85
+        },
+        {
+          "security": "770700102",
+          "previous_weight": 4.62,
+          "weight": 4.74
+        },
+        {
+          "security": "771049103",
+          "previous_weight": 2.18,
+          "weight": 2.13
+        },
+        {
+          "security": "781154109",
+          "previous_weight": 1.93,
+          "weight": 1.94
+        },
+        {
+          "security": "82509L107",
+          "previous_weight": 3.73,
+          "weight": 3.6
+        },
+        {
+          "security": "833445109",
+          "previous_weight": 1.01,
+          "weight": 1.0
         },
         {
           "security": "852234103",
-          "previous_weight": 3.68,
-          "weight": 3.63
+          "previous_weight": 3.63,
+          "weight": 3.54
         },
         {
           "security": "874039100",
-          "previous_weight": 2.12,
-          "weight": 2.16
+          "previous_weight": 2.16,
+          "weight": 2.17
         },
         {
           "security": "88160R101",
-          "previous_weight": 7.57,
-          "weight": 7.67
+          "previous_weight": 7.67,
+          "weight": 7.65
         },
         {
           "security": "888787108",
-          "previous_weight": 1.25,
-          "weight": 1.23
+          "previous_weight": 1.23,
+          "weight": 1.19
         },
         {
           "security": "BQ84B35",
-          "previous_weight": 0.41,
-          "weight": 0.42
+          "previous_weight": 0.42,
+          "weight": 0.41
         },
         {
           "security": "G16910120",
-          "previous_weight": 1.69,
-          "weight": 1.55
+          "previous_weight": 1.55,
+          "weight": 1.64
         },
         {
           "security": "G3934V109",
-          "previous_weight": 0.87,
-          "weight": 0.89
+          "previous_weight": 0.89,
+          "weight": 0.85
         },
         {
           "security": "L8681T102",
-          "previous_weight": 1.27,
-          "weight": 1.26
+          "previous_weight": 1.26,
+          "weight": 1.18
         },
         {
           "security": "MM0051EWE",
-          "previous_weight": 3.77,
-          "weight": 3.71
+          "previous_weight": 3.71,
+          "weight": 3.66
         },
         {
           "security": "PPOPENAIC",
-          "previous_weight": 2.33,
-          "weight": 2.3
+          "previous_weight": 2.3,
+          "weight": 2.26
         },
         {
           "security": "X9USDGSFT",
-          "previous_weight": 1.63,
-          "weight": 1.72
+          "previous_weight": 1.72,
+          "weight": 1.95
         }
       ]
     },
@@ -571,153 +596,163 @@
       "weight_changes": [
         {
           "security": "00091E109",
-          "previous_weight": 4.24,
-          "weight": 4.28
+          "previous_weight": 4.28,
+          "weight": 4.59
         },
         {
           "security": "00650F109",
-          "previous_weight": 2.46,
-          "weight": 2.54
+          "previous_weight": 2.54,
+          "weight": 2.44
         },
         {
           "security": "010911105",
-          "previous_weight": 1.43,
-          "weight": 1.46
+          "previous_weight": 1.46,
+          "weight": 1.47
         },
         {
           "security": "03969T109",
-          "previous_weight": 2.25,
-          "weight": 2.21
+          "previous_weight": 2.21,
+          "weight": 2.23
         },
         {
           "security": "07373V105",
-          "previous_weight": 2.95,
-          "weight": 2.93
+          "previous_weight": 2.93,
+          "weight": 2.91
         },
         {
           "security": "124155102",
-          "previous_weight": 1.93,
-          "weight": 1.79
+          "previous_weight": 1.79,
+          "weight": 1.83
         },
         {
           "security": "14167L103",
-          "previous_weight": 3.99,
-          "weight": 4.05
+          "previous_weight": 4.05,
+          "weight": 3.82
         },
         {
           "security": "157085101",
-          "previous_weight": 0.97,
-          "weight": 0.98
+          "previous_weight": 0.98,
+          "weight": 0.96
         },
         {
           "security": "20451W101",
-          "previous_weight": 3.2,
-          "weight": 3.19
+          "previous_weight": 3.19,
+          "weight": 3.22
+        },
+        {
+          "security": "35661P100",
+          "previous_weight": 0.55,
+          "weight": 0.57
         },
         {
           "security": "370920100",
-          "previous_weight": 1.28,
-          "weight": 1.24
+          "previous_weight": 1.24,
+          "weight": 1.26
         },
         {
           "security": "40131M109",
-          "previous_weight": 5.09,
-          "weight": 5.13
+          "previous_weight": 5.13,
+          "weight": 4.99
         },
         {
           "security": "452327109",
-          "previous_weight": 4.15,
-          "weight": 4.26
+          "previous_weight": 4.26,
+          "weight": 4.24
         },
         {
           "security": "45826J105",
-          "previous_weight": 1.62,
-          "weight": 1.63
+          "previous_weight": 1.63,
+          "weight": 1.51
         },
         {
           "security": "462222100",
-          "previous_weight": 1.84,
-          "weight": 1.74
+          "previous_weight": 1.74,
+          "weight": 1.69
+        },
+        {
+          "security": "532457108",
+          "previous_weight": 3.74,
+          "weight": 3.52
         },
         {
           "security": "632307104",
-          "previous_weight": 4.37,
-          "weight": 4.29
+          "previous_weight": 4.29,
+          "weight": 4.23
         },
         {
           "security": "65443P102",
-          "previous_weight": 0.99,
-          "weight": 0.98
+          "previous_weight": 0.98,
+          "weight": 1.01
         },
         {
           "security": "67080M103",
-          "previous_weight": 2.17,
-          "weight": 2.19
+          "previous_weight": 2.19,
+          "weight": 2.06
+        },
+        {
+          "security": "69404D108",
+          "previous_weight": 0.74,
+          "weight": 0.71
         },
         {
           "security": "71535D106",
-          "previous_weight": 5.48,
-          "weight": 5.47
+          "previous_weight": 5.47,
+          "weight": 5.13
         },
         {
           "security": "74168J101",
-          "previous_weight": 1.22,
-          "weight": 1.17
+          "previous_weight": 1.17,
+          "weight": 1.13
         },
         {
           "security": "74765K105",
-          "previous_weight": 0.25,
-          "weight": 0.26
+          "previous_weight": 0.26,
+          "weight": 0.25
         },
         {
           "security": "75629V104",
-          "previous_weight": 2.29,
-          "weight": 2.25
+          "previous_weight": 2.25,
+          "weight": 2.32
         },
         {
           "security": "80810D103",
-          "previous_weight": 2.63,
-          "weight": 2.7
+          "previous_weight": 2.7,
+          "weight": 3.18
         },
         {
           "security": "811033109",
-          "previous_weight": 0.66,
-          "weight": 0.6
-        },
-        {
-          "security": "81663L200",
-          "previous_weight": 2.46,
-          "weight": 2.53
+          "previous_weight": 0.6,
+          "weight": 0.62
         },
         {
           "security": "88023B103",
-          "previous_weight": 8.53,
-          "weight": 8.65
+          "previous_weight": 8.65,
+          "weight": 9.23
         },
         {
           "security": "88025U109",
-          "previous_weight": 9.86,
-          "weight": 9.61
+          "previous_weight": 9.61,
+          "weight": 9.46
         },
         {
           "security": "90184D100",
-          "previous_weight": 8.61,
-          "weight": 8.9
+          "previous_weight": 8.9,
+          "weight": 9.0
         },
         {
           "security": "92337F107",
-          "previous_weight": 1.92,
-          "weight": 1.84
+          "previous_weight": 1.84,
+          "weight": 1.8
         },
         {
           "security": "H17182108",
-          "previous_weight": 5.58,
-          "weight": 5.61
+          "previous_weight": 5.61,
+          "weight": 5.72
         },
         {
           "security": "X9USDGSFT",
-          "previous_weight": 0.57,
-          "weight": 0.5
+          "previous_weight": 0.5,
+          "weight": 0.38
         }
       ]
     },
@@ -727,168 +762,163 @@
       "weight_changes": [
         {
           "security": "007903107",
-          "previous_weight": 1.67,
-          "weight": 1.73
+          "previous_weight": 1.73,
+          "weight": 1.82
         },
         {
           "security": "009066101",
-          "previous_weight": 1.75,
-          "weight": 1.78
+          "previous_weight": 1.78,
+          "weight": 1.74
         },
         {
           "security": "023135106",
-          "previous_weight": 3.68,
-          "weight": 3.72
+          "previous_weight": 3.72,
+          "weight": 3.75
         },
         {
           "security": "09175A206",
-          "previous_weight": 2.19,
-          "weight": 2.16
+          "previous_weight": 2.16,
+          "weight": 2.23
         },
         {
           "security": "172573107",
-          "previous_weight": 6.47,
-          "weight": 6.16
+          "previous_weight": 6.16,
+          "weight": 6.43
         },
         {
           "security": "18915M107",
-          "previous_weight": 1.26,
-          "weight": 1.28
+          "previous_weight": 1.28,
+          "weight": 1.29
         },
         {
           "security": "19260Q107",
-          "previous_weight": 5.57,
-          "weight": 5.44
+          "previous_weight": 5.44,
+          "weight": 5.67
         },
         {
           "security": "22788C105",
-          "previous_weight": 2.42,
-          "weight": 2.46
+          "previous_weight": 2.46,
+          "weight": 2.47
         },
         {
           "security": "25809K105",
-          "previous_weight": 1.42,
-          "weight": 1.43
+          "previous_weight": 1.43,
+          "weight": 1.4
         },
         {
           "security": "26142V105",
-          "previous_weight": 1.58,
-          "weight": 1.6
-        },
-        {
-          "security": "30303M102",
-          "previous_weight": 3.73,
-          "weight": 3.83
-        },
-        {
-          "security": "36118L106",
-          "previous_weight": 1.48,
-          "weight": 1.52
+          "previous_weight": 1.6,
+          "weight": 1.46
         },
         {
           "security": "58733R102",
-          "previous_weight": 3.0,
-          "weight": 3.08
+          "previous_weight": 3.08,
+          "weight": 3.02
         },
         {
           "security": "67066G104",
-          "previous_weight": 3.0,
-          "weight": 3.09
+          "previous_weight": 3.09,
+          "weight": 3.13
         },
         {
           "security": "69608A108",
-          "previous_weight": 4.2,
-          "weight": 4.33
-        },
-        {
-          "security": "70450C101",
-          "previous_weight": 0.53,
-          "weight": 0.54
+          "previous_weight": 4.33,
+          "weight": 4.32
         },
         {
           "security": "770700102",
-          "previous_weight": 6.05,
-          "weight": 5.84
+          "previous_weight": 5.84,
+          "weight": 5.96
         },
         {
           "security": "771049103",
+          "previous_weight": 1.96,
+          "weight": 1.94
+        },
+        {
+          "security": "81141R100",
           "previous_weight": 2.03,
           "weight": 1.96
         },
         {
-          "security": "81141R100",
-          "previous_weight": 1.98,
-          "weight": 2.03
-        },
-        {
           "security": "81517B101",
-          "previous_weight": 1.19,
-          "weight": 1.18
+          "previous_weight": 1.18,
+          "weight": 1.34
         },
         {
           "security": "82509L107",
-          "previous_weight": 6.93,
-          "weight": 7.07
+          "previous_weight": 7.07,
+          "weight": 6.91
         },
         {
           "security": "83406F102",
-          "previous_weight": 2.45,
-          "weight": 2.47
+          "previous_weight": 2.47,
+          "weight": 2.42
         },
         {
           "security": "852234103",
-          "previous_weight": 7.82,
-          "weight": 7.81
+          "previous_weight": 7.81,
+          "weight": 7.69
         },
         {
           "security": "888787108",
-          "previous_weight": 4.48,
-          "weight": 4.47
+          "previous_weight": 4.47,
+          "weight": 4.34
         },
         {
           "security": "98954M200",
-          "previous_weight": 0.6,
-          "weight": 0.59
+          "previous_weight": 0.59,
+          "weight": 0.56
         },
         {
-          "security": "BQ84B35",
-          "previous_weight": 0.59,
-          "weight": 0.6
+          "security": "BTRDQ40",
+          "previous_weight": 0.41,
+          "weight": 0.42
         },
         {
           "security": "BZ1HM42",
-          "previous_weight": 1.94,
-          "weight": 1.93
+          "previous_weight": 1.93,
+          "weight": 1.91
         },
         {
           "security": "G16910120",
-          "previous_weight": 3.34,
-          "weight": 3.09
+          "previous_weight": 3.09,
+          "weight": 3.31
+        },
+        {
+          "security": "G32089107",
+          "previous_weight": 0.9,
+          "weight": 0.88
         },
         {
           "security": "G5279N105",
-          "previous_weight": 1.22,
-          "weight": 1.24
+          "previous_weight": 1.24,
+          "weight": 1.22
         },
         {
           "security": "G6683N103",
-          "previous_weight": 1.94,
-          "weight": 1.93
+          "previous_weight": 1.93,
+          "weight": 1.91
+        },
+        {
+          "security": "L8681T102",
+          "previous_weight": 1.87,
+          "weight": 1.78
         },
         {
           "security": "MM005473T",
-          "previous_weight": 5.2,
-          "weight": 5.29
+          "previous_weight": 5.29,
+          "weight": 5.18
         },
         {
           "security": "PPOPENAIC",
-          "previous_weight": 2.74,
-          "weight": 2.8
+          "previous_weight": 2.8,
+          "weight": 2.71
         },
         {
           "security": "X9USDGSFT",
-          "previous_weight": 1.66,
-          "weight": 1.7
+          "previous_weight": 1.7,
+          "weight": 1.66
         }
       ]
     },
@@ -898,138 +928,163 @@
       "weight_changes": [
         {
           "security": "007903107",
-          "previous_weight": 4.41,
-          "weight": 4.47
+          "previous_weight": 4.47,
+          "weight": 4.65
         },
         {
           "security": "008073108",
-          "previous_weight": 5.15,
-          "weight": 5.12
+          "previous_weight": 5.12,
+          "weight": 5.23
         },
         {
           "security": "02079K107",
-          "previous_weight": 4.05,
-          "weight": 4.02
+          "previous_weight": 4.02,
+          "weight": 3.98
         },
         {
           "security": "023135106",
-          "previous_weight": 4.52,
-          "weight": 4.47
+          "previous_weight": 4.47,
+          "weight": 4.46
         },
         {
           "security": "03945R102",
-          "previous_weight": 3.57,
-          "weight": 3.4
+          "previous_weight": 3.4,
+          "weight": 3.44
         },
         {
           "security": "05605H100",
-          "previous_weight": 1.57,
-          "weight": 1.56
+          "previous_weight": 1.56,
+          "weight": 1.53
         },
         {
           "security": "244199105",
-          "previous_weight": 5.78,
-          "weight": 5.64
+          "previous_weight": 5.64,
+          "weight": 5.65
         },
         {
           "security": "25809K105",
-          "previous_weight": 1.95,
-          "weight": 1.93
+          "previous_weight": 1.93,
+          "weight": 1.87
+        },
+        {
+          "security": "4012250",
+          "previous_weight": 0.95,
+          "weight": 0.93
+        },
+        {
+          "security": "4162791",
+          "previous_weight": 2.01,
+          "weight": 1.94
         },
         {
           "security": "422806109",
-          "previous_weight": 1.46,
-          "weight": 1.47
+          "previous_weight": 1.47,
+          "weight": 1.42
         },
         {
-          "security": "43849R105",
-          "previous_weight": 0.4,
-          "weight": 0.42
+          "security": "46125A100",
+          "previous_weight": 1.88,
+          "weight": 1.96
+        },
+        {
+          "security": "46269C102",
+          "previous_weight": 0.47,
+          "weight": 0.46
         },
         {
           "security": "50077B207",
-          "previous_weight": 6.21,
-          "weight": 6.18
+          "previous_weight": 6.18,
+          "weight": 6.06
         },
         {
           "security": "502431109",
-          "previous_weight": 6.59,
-          "weight": 6.6
+          "previous_weight": 6.6,
+          "weight": 6.45
+        },
+        {
+          "security": "539830109",
+          "previous_weight": 0.92,
+          "weight": 0.9
         },
         {
           "security": "6496584",
-          "previous_weight": 3.21,
-          "weight": 3.17
+          "previous_weight": 3.17,
+          "weight": 3.11
         },
         {
           "security": "67066G104",
-          "previous_weight": 4.26,
-          "weight": 4.28
+          "previous_weight": 4.28,
+          "weight": 4.3
         },
         {
           "security": "69608A108",
-          "previous_weight": 3.64,
-          "weight": 3.66
+          "previous_weight": 3.66,
+          "weight": 3.62
         },
         {
           "security": "773121108",
-          "previous_weight": 5.23,
-          "weight": 5.22
+          "previous_weight": 5.22,
+          "weight": 5.44
         },
         {
           "security": "84615Q103",
-          "previous_weight": 10.44,
-          "weight": 10.95
+          "previous_weight": 10.95,
+          "weight": 10.99
         },
         {
           "security": "871607107",
-          "previous_weight": 0.89,
-          "weight": 0.91
+          "previous_weight": 0.91,
+          "weight": 0.9
         },
         {
           "security": "874039100",
-          "previous_weight": 1.79,
-          "weight": 1.81
+          "previous_weight": 1.81,
+          "weight": 1.82
+        },
+        {
+          "security": "879360105",
+          "previous_weight": 1.08,
+          "weight": 1.05
         },
         {
           "security": "880770102",
-          "previous_weight": 3.48,
-          "weight": 3.56
-        },
-        {
-          "security": "88160R101",
-          "previous_weight": 3.38,
-          "weight": 3.39
+          "previous_weight": 3.56,
+          "weight": 3.6
         },
         {
           "security": "896239100",
-          "previous_weight": 3.38,
-          "weight": 3.28
+          "previous_weight": 3.28,
+          "weight": 3.21
         },
         {
           "security": "98386P102",
-          "previous_weight": 1.19,
-          "weight": 1.15
+          "previous_weight": 1.15,
+          "weight": 1.26
         },
         {
           "security": "B3Z5T14",
-          "previous_weight": 1.5,
-          "weight": 1.48
+          "previous_weight": 1.48,
+          "weight": 1.44
         },
         {
           "security": "BNMBPD9",
-          "previous_weight": 1.04,
-          "weight": 1.02
+          "previous_weight": 1.02,
+          "weight": 1.0
         },
         {
           "security": "G65163100",
-          "previous_weight": 1.81,
-          "weight": 1.79
+          "previous_weight": 1.79,
+          "weight": 1.78
+        },
+        {
+          "security": "M3760D101",
+          "previous_weight": 1.37,
+          "weight": 1.36
         },
         {
           "security": "X9USDGSFT",
-          "previous_weight": 0.13,
-          "weight": 0.12
+          "previous_weight": 0.12,
+          "weight": 0.11
         }
       ]
     }
