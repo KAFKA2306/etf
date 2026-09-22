@@ -1,5 +1,5 @@
 {
-  "as_of": "09/18/2026",
+  "as_of": "09/22/2026",
   "shared_holdings": [
     {
       "security": "X9USDGSFT",
@@ -252,7 +252,7 @@
       "fund_count": 3
     },
     {
-      "security": "G13311132",
+      "security": "G16910120",
       "funds": [
         "ARKF",
         "ARKK",
@@ -261,7 +261,7 @@
       "fund_count": 3
     },
     {
-      "security": "G16910120",
+      "security": "PPKALSHIC",
       "funds": [
         "ARKF",
         "ARKK",
