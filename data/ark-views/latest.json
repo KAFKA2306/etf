@@ -1,13 +1,13 @@
 {
-  "as_of": "09/24/2026",
-  "snapshot_count": 24,
+  "as_of": "09/25/2026",
+  "snapshot_count": 25,
   "funds": {
     "ARKK": {
       "row_count": 46,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv",
-      "source_sha256": "e74ae0db31ac83ffa99f2af1156e8042d42625e357f5b0bd0f98f2f748331743",
+      "source_sha256": "ac4e2a4878e0478ceef1ebd9efa4151d7f37d43a0ddf507ffa4e1ee193888a21",
       "audit": {
-        "weight_total": 100.01,
+        "weight_total": 100.02,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
@@ -16,9 +16,9 @@
     "ARKQ": {
       "row_count": 38,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",
-      "source_sha256": "2a5af37b5dc3f5735ae519c82a3e3c12e7500ca95d87c2a5120a3cba0e4622e8",
+      "source_sha256": "ba7dcdeabc4c52f299f1747b2c0e7604e022c90e18bb83134091792b056c7fae",
       "audit": {
-        "weight_total": 100.0,
+        "weight_total": 99.99,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
@@ -27,9 +27,9 @@
     "ARKW": {
       "row_count": 43,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv",
-      "source_sha256": "6b648d0cc7938c63919464251f547409ea07ecd9752574ecd6d8f7a202df7a43",
+      "source_sha256": "06d8bc9e6da06ff4a128a94cea3e13f2f861fab806c467a36146c72b5d0959a7",
       "audit": {
-        "weight_total": 99.99,
+        "weight_total": 99.96,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
@@ -38,9 +38,9 @@
     "ARKG": {
       "row_count": 33,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",
-      "source_sha256": "3bd7727fc5907178ba9c3e98f18c50abdd8a1abd6f6308d9a6f6f948e805136b",
+      "source_sha256": "9bba407ab7a185e14484535948beb5406ae5a8da97051550e24f24166e5a06f7",
       "audit": {
-        "weight_total": 100.01,
+        "weight_total": 100.0,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
@@ -49,9 +49,9 @@
     "ARKF": {
       "row_count": 41,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_BLOCKCHAIN_&_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv",
-      "source_sha256": "6bcc76924ba8f2c0c23e5edcca746debb6ee478a5cd7566021f10a3672f93947",
+      "source_sha256": "acea8272e4ff520549420cc9eb9f37624c5ac3818692e9d8c0462a93d274cf52",
       "audit": {
-        "weight_total": 100.0,
+        "weight_total": 99.98,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
@@ -60,9 +60,9 @@
     "ARKX": {
       "row_count": 35,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",
-      "source_sha256": "ae2a96bf1428568be572493fc4bdc702dccffa7e0e5f032286b2e6afb38c5331",
+      "source_sha256": "d8b7817e23820148f5e980a46f614897ff4993f05932c7cf781258a25e019446",
       "audit": {
-        "weight_total": 100.03,
+        "weight_total": 100.0,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0
