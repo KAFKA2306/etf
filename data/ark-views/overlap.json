@@ -1,5 +1,5 @@
 {
-  "as_of": "09/30/2026",
+  "as_of": "10/01/2026",
   "shared_holdings": [
     {
       "security": "X9USDGSFT",
@@ -295,14 +295,6 @@
       "fund_count": 2
     },
     {
-      "security": "02079K305",
-      "funds": [
-        "ARKQ",
-        "ARKX"
-      ],
-      "fund_count": 2
-    },
-    {
       "security": "07373V105",
       "funds": [
         "ARKG",
@@ -574,7 +566,7 @@
       "ARKW": 11,
       "ARKG": 1,
       "ARKF": 6,
-      "ARKX": 25
+      "ARKX": 24
     },
     "ARKW": {
       "ARKK": 24,
@@ -602,11 +594,11 @@
     },
     "ARKX": {
       "ARKK": 15,
-      "ARKQ": 25,
+      "ARKQ": 24,
       "ARKW": 10,
       "ARKG": 1,
       "ARKF": 6,
-      "ARKX": 35
+      "ARKX": 34
     }
   }
 }
