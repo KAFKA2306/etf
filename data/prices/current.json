@@ -1,15 +1,15 @@
 {
   "provider": "yfinance",
   "request": {
-    "end": "2026-10-05",
+    "end": "2026-10-06",
     "interval": "1d",
     "start": "2024-01-01"
   },
-  "retrieved_at": "2026-10-05T02:04:24.531749+00:00",
+  "retrieved_at": "2026-10-06T03:05:41.596042+00:00",
   "schema_version": "etf.daily-prices.v1",
   "series": [
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -2778,15 +2778,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 43.209999084472656
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 43.45000076293945
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "FEPI"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -5555,15 +5559,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 160.94000244140625
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 160.1199951171875
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "PSI"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -8332,15 +8340,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 115.45700073242188
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 115.7770004272461
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "SHOC"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -11109,15 +11121,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 263.25
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 262.4700012207031
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "FTXL"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -13886,15 +13902,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 93.91500091552734
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 94.28399658203125
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "CHPS"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -16663,15 +16683,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 39.893001556396484
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 40.637001037597656
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "EMSF"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -19440,15 +19464,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 103.41000366210938
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 103.70999908447266
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "SOXQ"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -22217,15 +22245,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 588.9000244140625
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 589.510009765625
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "SOXX"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -24994,15 +25026,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 630.5999755859375
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 633.9000244140625
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "SMH"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -27771,15 +27807,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 40.85300064086914
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 41.25
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "SEMI"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -30548,15 +30588,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 32.2239990234375
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 32.40800094604492
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "FFND"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -33325,15 +33369,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 103.11000061035156
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 103.70999908447266
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "IGPT"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -36102,15 +36150,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 555.2100219726562
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 552.4199829101562
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "XSD"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -38879,15 +38931,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 58.858001708984375
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 59.00899887084961
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "ARVR"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -41656,15 +41712,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 91.12000274658203
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 92.12000274658203
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "LOUP"
     },
     {
-      "actual_end": "2026-10-02",
+      "actual_end": "2026-10-05",
       "actual_start": "2024-01-02",
       "currency": null,
       "exchange": null,
@@ -44433,15 +44493,19 @@
         {
           "date": "2026-10-02",
           "raw_close": 389.2200012207031
+        },
+        {
+          "date": "2026-10-05",
+          "raw_close": 390.4700012207031
         }
       ],
-      "requested_end": "2026-10-05",
+      "requested_end": "2026-10-06",
       "requested_start": "2024-01-01",
-      "row_count": 691,
+      "row_count": 692,
       "symbol": "XNTK"
     }
   ],
-  "snapshot_sha256": "10fd6a56b8e100a3ff393cd6a1e12ed724427d86f6c55d9bf5d199fcedf2d652",
-  "source_commit": "084395f8cd9310a9b7c0227c25e7f813173ae457",
+  "snapshot_sha256": "ef86ae8b6f307bf2e4e7e8829229b8342ab75b31cca0e248ede57c6ad7fae68e",
+  "source_commit": "c33e351c8e20538dcf425699636525053c623aba",
   "timezone": "UTC"
 }
