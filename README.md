@@ -102,3 +102,7 @@ repository rename / 責務整理は `KAFKA2306/investor2#110` で扱います。
 ## 注意
 
 本repositoryは観測データと再現可能なderived viewを提供します。ARKの投資テーマ・将来予測・推奨をholdings factとして保存しません。
+
+## Operational ontology
+
+[Project ontology](ontology/project.yaml) defines domain objects, evidence-bearing relations, guarded actions and outcome metrics under the [shared Causal–Evidence Core](https://github.com/KAFKA2306/know/blob/main/ontology/causal-evidence-core.yaml). This contract does not add real-world execution capability or replace this repository's canonical source.

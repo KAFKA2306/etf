@@ -1,0 +1,85 @@
+project:
+  id: "kafka:etf"
+  name: "ARK ETF Holdings Evidence"
+  repository: "https://github.com/KAFKA2306/etf"
+  version: "0.1.0"
+  updated: "2026-10-08"
+  core_ontology: "https://raw.githubusercontent.com/KAFKA2306/know/main/ontology/causal-evidence-core.yaml"
+  schema: "https://raw.githubusercontent.com/KAFKA2306/know/main/ontology/project.schema.json"
+
+purpose:
+  problem: "Preserve official ETF holding snapshots and reproduce changes and fund overlap without inferred trades."
+  intended_decisions: ["accept_snapshot","reject_inconsistent_as_of","publish_derived_view"]
+  success_conditions:
+    - "No identical fingerprint causes a second snapshot."
+    - "A changed official CSV for the same as-of date gets a new fingerprint."
+    - "Fund overlap uses comparable snapshots."
+  falsification_conditions:
+    - "Inconsistent as-of dates are compared as equal."
+    - "Existing raw observations are overwritten."
+
+scope:
+  included: ["ARK fund","holding","security","weight","effective as-of","retrieval timestamp","source checksum"]
+  excluded: ["automatic trade execution","invented holdings","current ownership inferred from old snapshots"]
+  temporal: "Source event time, effective time, snapshot retrieval and decision time remain distinguishable."
+  abstraction_level: "Domain-specific evidence, guarded decisions and source authority."
+
+competency_questions:
+  - "What securities were in each fund on a specific as-of date?"
+  - "Which official CSV bytes support this holding?"
+  - "Were all compared funds from the same effective date?"
+
+domain_mapping:
+  System: "ETFHoldingsSourceAndDerivation"
+  State: ["snapshot status","effective date alignment","derived view status"]
+  Action: ["download official CSV","validate date","append snapshot","build overlap view"]
+  Process: ["official holdings ingestion","fingerprint generation","change calculation","static publication"]
+  Observation: ["official CSV","holding weight","retrieval time"]
+  Model: ["content-addressed snapshot","deterministic view builder"]
+  Requirement: ["official source","source hash","no overwrite","consistent as-of date"]
+  Claim: ["fund held security at as-of date","weight changed across snapshots"]
+  Evidence: ["ARK official holdings CSV","official ETF source explanation"]
+  Decision: ["accept_snapshot","reject_inconsistent_as_of","publish_derived_view"]
+
+claims_and_evidence:
+  assertion_types: ["ObservedFact","ReportedFact","CalculatedValue","ModelEstimate","RequirementAssertion","DecisionAssertion"]
+  required_evidence:
+    MaterialClaim: ["source identity","event or effective date","entity identity","status"]
+    Decision: ["explicit rule","supporting evidence","decision time"]
+  unknown_policy: "Missing, stale or scope-mismatched evidence blocks promotion to verified state."
+
+decision_rules:
+  - id: "publish_reproducible_holdings_views"
+    when: "Official CSV source fingerprint, coherent fund as-of dates and deterministic rebuild pass"
+    result: "accept_snapshot"
+  - id: "missing-evidence"
+    when: "Required supporting evidence cannot be verified."
+    result: "REVIEW_REQUIRED"
+
+provenance:
+  sources: ["ARK official holdings CSV","official ETF source explanation"]
+  generated_artifacts: ["collect_ark_holdings.py","build_ark_views.py","data/ark-holdings/"]
+  agents: ["existing repository scripts","GitHub Actions","human reviewer"]
+  lineage: "Source observation -> versioned canonical entity -> validation -> decision -> published result."
+
+validation:
+  structural: "Canonical record identity, source metadata and artifact signatures must validate."
+  semantic: "Observed facts, derived views, forecasts, authorizations and assertions remain separate."
+  evidence: "Evidence dates, versions, scopes and sources must support each material decision."
+  publication: "Published status follows canonical artifact evidence and does not imply unavailable production behavior."
+
+operational_model:
+  implementation_status: "mapping to existing source workflows; execution requires independent evidence"
+  canonical_sources: ["collect_ark_holdings.py","build_ark_views.py","data/ark-holdings/"]
+  objects: ["Fund","Holding","Security","Snapshot","Change","Evidence"]
+  links:
+    - ["Fund","HAS_SNAPSHOT","Snapshot"]
+    - ["Snapshot","CONTAINS","Holding"]
+    - ["Holding","REFERENCES","Security"]
+    - ["Change","DERIVED_FROM","Snapshot"]
+  actions:
+    - id: "publish_reproducible_holdings_views"
+      preconditions: "Official CSV source fingerprint, coherent fund as-of dates and deterministic rebuild pass"
+      recorded_effect: "Append new raw snapshot and publish reproducible changes/overlap"
+      rollback_or_recovery: "Reject mismatched snapshots and preserve previous immutable version"
+  outcome_metrics: ["fund_snapshot_coverage","source_fingerprint_integrity","unresolved_asof_count"]
