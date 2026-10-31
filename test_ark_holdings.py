@@ -80,6 +80,12 @@ class ArkHoldingsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "expected about 100"):
             audit_rows([{"cusip": "333", "weight (%)": "75%"}], "ARKK")
 
+    def test_arkw_uses_current_fund_name(self):
+        self.assertEqual(
+            CANDIDATE_FILES["ARKW"],
+            ("ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",),
+        )
+
     def test_arkx_uses_current_fund_name(self):
         self.assertEqual(
             CANDIDATE_FILES["ARKX"],
@@ -96,6 +102,18 @@ class ArkHoldingsTest(unittest.TestCase):
             self.assertNotEqual(first, changed)
             self.assertEqual(first.parent.name, "2026-08-17")
             self.assertTrue(first.exists() and changed.exists())
+
+    def test_mixed_fund_dates_fail_before_writing_any_snapshot(self):
+        mixed = payload()
+        mixed["snapshots"][1]["as_of"] = "10/06/2026"
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "ARKK=2026-08-17, ARKQ=2026-10-06; no snapshot written",
+            ):
+                write_snapshot(mixed, root)
+            self.assertEqual(list(root.rglob("*.json")), [])
 
     def test_views_build_changes_overlap_audit_and_readiness(self):
         with TemporaryDirectory() as tmp:

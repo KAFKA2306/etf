@@ -17,7 +17,7 @@ FUNDS = ("ARKK", "ARKQ", "ARKW", "ARKG", "ARKF", "ARKX")
 CANDIDATE_FILES = {
     "ARKK": ("ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv",),
     "ARKQ": ("ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",),
-    "ARKW": ("ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv",),
+    "ARKW": ("ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",),
     "ARKG": ("ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",),
     "ARKF": ("ARK_BLOCKCHAIN_&_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv",),
     "ARKX": ("ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",),
@@ -181,9 +181,15 @@ def parse_date(value: str) -> str:
 
 def snapshot_identity(payload: dict[str, object]) -> tuple[str, str]:
     snapshots = payload["snapshots"]
-    dates = {parse_date(str(item["as_of"])) for item in snapshots}
+    dates_by_fund = {
+        str(item["fund"]): parse_date(str(item["as_of"])) for item in snapshots
+    }
+    dates = set(dates_by_fund.values())
     if len(dates) != 1:
-        raise RuntimeError(f"fund as-of dates disagree: {sorted(dates)}")
+        details = ", ".join(
+            f"{fund}={date}" for fund, date in sorted(dates_by_fund.items())
+        )
+        raise RuntimeError(f"fund as-of dates disagree: {details}; no snapshot written")
     source_hashes = sorted(
         f'{item["fund"]}:{item["source_sha256"]}'
         for item in snapshots
