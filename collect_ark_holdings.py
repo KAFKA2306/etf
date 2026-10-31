@@ -181,9 +181,15 @@ def parse_date(value: str) -> str:
 
 def snapshot_identity(payload: dict[str, object]) -> tuple[str, str]:
     snapshots = payload["snapshots"]
-    dates = {parse_date(str(item["as_of"])) for item in snapshots}
+    dates_by_fund = {
+        str(item["fund"]): parse_date(str(item["as_of"])) for item in snapshots
+    }
+    dates = set(dates_by_fund.values())
     if len(dates) != 1:
-        raise RuntimeError(f"fund as-of dates disagree: {sorted(dates)}")
+        details = ", ".join(
+            f"{fund}={date}" for fund, date in sorted(dates_by_fund.items())
+        )
+        raise RuntimeError(f"fund as-of dates disagree: {details}; no snapshot written")
     source_hashes = sorted(
         f'{item["fund"]}:{item["source_sha256"]}'
         for item in snapshots
