@@ -87,6 +87,8 @@ unit testsはparser、現行ARKX file名、append-only保存、changes/overlap�
 
 ## 取得日付の不一致と完了判定
 
+ARKWの公式CSVは、名称変更後の `ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv` を正準取得先にします。旧 `ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv` は更新停止を確認したため利用しません。
+
 6 fundの公式CSVが異なる日付を返した場合は、異なる時点のholdingsを混ぜずに保存を拒否します。失敗ログにはfund別のas-of日付を表示します。公式CSVの更新遅延やsource変更を確認し、第三者archiveや推測値で穴埋めしません。正常な取得と再実行が確認できるまで新しいsnapshotと公開viewは更新されません。
 
 Issue #9のrepository側の完了判定は、保存済みの日次セットに6 fundがそろい、provenanceとweight/identity監査が通ることです。60取引日の自然な経過は完了条件ではなく、観測日数は参考情報です。取得・保存・公開の実運用成功は、このrepository側の判定とは別に確認します。
