@@ -1,65 +1,16 @@
-import json
-import tempfile
-import unittest
-from pathlib import Path
+import copy, unittest
+from scripts.jpx_listing_brief import build_brief, markdown
 
-from scripts.build_jpx_listing_brief import build_brief, render_markdown
-
-
-FIXTURES = Path(__file__).parent / "fixtures" / "jpx_listing_brief"
-WATCHLISTS = Path(__file__).parents[1] / "config" / "jpx-watchlists.v1.json"
-
-
-class JpxListingBriefTests(unittest.TestCase):
-    def build(self, name="all", watchlists=WATCHLISTS):
-        return build_brief(
-            FIXTURES / "previous.json",
-            FIXTURES / "current.json",
-            watchlists,
-            name,
-            FIXTURES / "previous-manifest.json",
-            FIXTURES / "current-manifest.json",
-        )
-
-    def test_classifies_all_four_states_without_inference(self):
-        brief = self.build()
-        changes = {item["code"]: item for item in brief["changes"]}
-        self.assertEqual(changes["100A"]["status"], "CHANGED")
-        self.assertEqual(changes["100A"]["changed_fields"], ["trust_fee_percent"])
-        self.assertEqual(changes["200A"]["status"], "REMOVED_FROM_CURRENT_SNAPSHOT")
-        self.assertIsNone(changes["200A"]["before"]["trust_fee_percent"])
-        self.assertEqual(changes["300A"]["status"], "ADDED")
-        self.assertIsNone(changes["300A"]["after"]["trust_fee_percent"])
-        self.assertEqual(changes["400A"]["status"], "UNCHANGED")
-        self.assertIn("does not assert delisting", brief["semantics"]["removed_from_current_snapshot"])
-
-    def test_watchlist_is_config_only_and_provenance_is_complete(self):
-        config = json.loads(WATCHLISTS.read_text(encoding="utf-8"))
-        config["watchlists"]["selected"] = {
-            "codes": ["100A", "300A"],
-            "management_companies": [],
-            "active_etf": None,
-        }
-        with tempfile.TemporaryDirectory() as tmp:
-            temp_config = Path(tmp) / "watchlists.json"
-            temp_config.write_text(json.dumps(config), encoding="utf-8")
-            brief = self.build("selected", temp_config)
-        self.assertEqual([item["code"] for item in brief["changes"]], ["100A", "300A"])
-        for side in ("previous", "current"):
-            provenance = brief["provenance"][side]
-            self.assertEqual(provenance["source_url"], "https://www.jpx.co.jp/example")
-            self.assertEqual(len(provenance["snapshot_sha256"]), 64)
-            self.assertEqual(len(provenance["manifest_sha256"]), 64)
-
-    def test_output_is_deterministic_and_markdown_preserves_removal_semantics(self):
-        first = self.build()
-        second = self.build()
-        self.assertEqual(json.dumps(first, sort_keys=True), json.dumps(second, sort_keys=True))
-        markdown = render_markdown(first)
-        self.assertIn("REMOVED_FROM_CURRENT_SNAPSHOT", markdown)
-        self.assertIn("does not assert delisting", markdown)
-        self.assertIn("Previous manifest SHA-256", markdown)
-
-
-if __name__ == "__main__":
-    unittest.main()
+BASE={"schema_version":"1.0.0","source_url":"https://www.jpx.co.jp/example","retrieved_at":"2026-01-01T00:00:00+09:00","records":[{"listing_date":"2026-01-01","code":"100A","fund_name":"Alpha Space ETF","index_name":None,"management_company":"A","trading_unit":1,"trust_fee_percent":0.1,"indicative_nav":True,"active_etf":False},{"listing_date":"2026-01-02","code":"200A","fund_name":"Beta ETF","index_name":"Beta","management_company":"B","trading_unit":10,"trust_fee_percent":0.2,"indicative_nav":True,"active_etf":False}]}
+WATCH={"schema_version":"1.0.0","id":"all","label":"All","rules":[]}
+class TestBrief(unittest.TestCase):
+ def test_all_states_and_determinism(self):
+  after=copy.deepcopy(BASE); after["retrieved_at"]="2026-02-01T00:00:00+09:00"; after["records"][0]["trust_fee_percent"]=0.11; after["records"].pop(1); after["records"].append({"listing_date":"2026-02-01","code":"300A","fund_name":"Gamma ETF","index_name":None,"management_company":"C","trading_unit":1,"trust_fee_percent":0.3,"indicative_nav":False,"active_etf":True})
+  first=build_brief(BASE,after,WATCH); second=build_brief(BASE,after,WATCH)
+  self.assertEqual(first,second); self.assertEqual([x["state"] for x in first["items"]],["CHANGED","REMOVED_FROM_CURRENT_SNAPSHOT","ADDED"]); self.assertIn("does not assert delisting",markdown(first))
+ def test_watchlist_without_code_change(self):
+  watch={"schema_version":"1.0.0","id":"space","rules":[{"field":"fund_name","contains":["Space"]}]}; brief=build_brief(BASE,copy.deepcopy(BASE),watch); self.assertEqual([x["code"] for x in brief["items"]],["100A"])
+ def test_missing_is_not_inferred(self):
+  broken=copy.deepcopy(BASE); del broken["records"][0]["index_name"]
+  with self.assertRaisesRegex(ValueError,"missing index_name"): build_brief(broken,BASE,WATCH)
+if __name__=="__main__": unittest.main()
