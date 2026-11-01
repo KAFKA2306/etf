@@ -1,11 +1,11 @@
 {
   "provider": "yfinance",
   "request": {
-    "end": "2026-10-31",
+    "end": "2026-11-01",
     "interval": "1d",
     "start": "2024-01-01"
   },
-  "retrieved_at": "2026-10-31T02:29:43.854769+00:00",
+  "retrieved_at": "2026-11-01T02:18:33.198215+00:00",
   "schema_version": "etf.daily-prices.v1",
   "series": [
     {
@@ -2860,7 +2860,7 @@
           "raw_close": 38.58000183105469
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "FEPI"
@@ -5717,7 +5717,7 @@
           "raw_close": 118.62999725341797
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "PSI"
@@ -8574,7 +8574,7 @@
           "raw_close": 95.44499969482422
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "SHOC"
@@ -11431,7 +11431,7 @@
           "raw_close": 211.3300018310547
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "FTXL"
@@ -14288,7 +14288,7 @@
           "raw_close": 74.80999755859375
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "CHPS"
@@ -17145,7 +17145,7 @@
           "raw_close": 34.37300109863281
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "EMSF"
@@ -20002,7 +20002,7 @@
           "raw_close": 84.12000274658203
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "SOXQ"
@@ -22859,7 +22859,7 @@
           "raw_close": 471.510009765625
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "SOXX"
@@ -25716,7 +25716,7 @@
           "raw_close": 522.489990234375
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "SMH"
@@ -28573,7 +28573,7 @@
           "raw_close": 35.94499969482422
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "SEMI"
@@ -31430,7 +31430,7 @@
           "raw_close": 31.5049991607666
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "FFND"
@@ -34287,7 +34287,7 @@
           "raw_close": 83.70999908447266
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "IGPT"
@@ -37144,7 +37144,7 @@
           "raw_close": 452.1000061035156
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "XSD"
@@ -40001,7 +40001,7 @@
           "raw_close": 55.29499816894531
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "ARVR"
@@ -42858,7 +42858,7 @@
           "raw_close": 74.4000015258789
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "LOUP"
@@ -45715,13 +45715,13 @@
           "raw_close": 333.17999267578125
         }
       ],
-      "requested_end": "2026-10-31",
+      "requested_end": "2026-11-01",
       "requested_start": "2024-01-01",
       "row_count": 711,
       "symbol": "XNTK"
     }
   ],
-  "snapshot_sha256": "eda6e061dd09e081d6d00474e2e35e2f2cac3e57a24122c642470d3c2ceeb7a7",
-  "source_commit": "ef1442afe2e8d74b0e6564c2bc18eed38065ade8",
+  "snapshot_sha256": "06317e22c0dc7467f28f74dfdde752e01a818ebce76e383435e225fc10995d4a",
+  "source_commit": "0e2ad3e5a68e620e80271dbf2a7cfdf07ee3bd5b",
   "timezone": "UTC"
 }
