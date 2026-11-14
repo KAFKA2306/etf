@@ -68,10 +68,10 @@ class ArkHoldingsTest(unittest.TestCase):
 
     def test_parse_csv_rejects_mixed_row_dates(self):
         raw = (
-            b"date,fund,company,ticker,cusip,weight(%)\\n"
-            b"08/17/2026,ARKK,FIRST,AAA,111,50\\n"
-            b"08/18/2026,ARKK,SECOND,BBB,222,50\\n"
-        ).replace(b"\\\\n", b"\\n")
+            b"date,fund,company,ticker,cusip,weight(%)\n"
+            b"08/17/2026,ARKK,FIRST,AAA,111,50\n"
+            b"08/18/2026,ARKK,SECOND,BBB,222,50\n"
+        )
         with self.assertRaisesRegex(ValueError, "mixed as-of dates"):
             parse_csv(raw, "ARKK")
 
