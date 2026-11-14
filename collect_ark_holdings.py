@@ -69,10 +69,10 @@ def parse_csv(raw: bytes, ticker: str | None = None) -> tuple[str | None, list[d
         if date_value:
             normalized_date = parse_date(date_value)
             if as_of is None:
-                as_of = normalized_date
-            elif as_of != normalized_date:
+                as_of = date_value
+            elif parse_date(as_of) != normalized_date:
                 raise ValueError(
-                    f"mixed as-of dates in one holdings CSV: {as_of} != {normalized_date}"
+                    f"mixed as-of dates in one holdings CSV: {as_of} != {date_value}"
                 )
         if ticker:
             row["fund_ticker"] = ticker
