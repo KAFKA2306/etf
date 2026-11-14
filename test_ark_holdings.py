@@ -66,6 +66,15 @@ class ArkHoldingsTest(unittest.TestCase):
         self.assertEqual(rows[0]["company"], "EXAMPLE INC")
         self.assertEqual(rows[0]["fund_ticker"], "ARKK")
 
+    def test_parse_csv_rejects_mixed_row_dates(self):
+        raw = (
+            b"date,fund,company,ticker,cusip,weight(%)\n"
+            b"08/17/2026,ARKK,FIRST,AAA,111,50\n"
+            b"08/18/2026,ARKK,SECOND,BBB,222,50\n"
+        )
+        with self.assertRaisesRegex(ValueError, "mixed as-of dates"):
+            parse_csv(raw, "ARKK")
+
     def test_audit_rows_checks_identity_duplicates_and_weight_total(self):
         rows = [
             {"cusip": "111", "weight (%)": "60.0%"},
