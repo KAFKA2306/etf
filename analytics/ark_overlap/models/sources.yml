@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: ark_latest
+    schema: raw
+    tables:
+      - name: funds
+        columns:
+          - name: fund
+            data_tests:
+              - unique
+      - name: holdings
+        description: One row per fund and normalized security identifier in the selected ARK snapshot.
+        data_tests:
+          - unique:
+              arguments:
+                column_name: "length(fund) || ':' || fund || security"

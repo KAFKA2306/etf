@@ -3,11 +3,17 @@
 from __future__ import annotations
 
 import json
+import os
+import subprocess
 from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import duckdb
 
 from collect_ark_holdings import parse_date
 
 FUNDS = ("ARKK", "ARKQ", "ARKW", "ARKG", "ARKF", "ARKX")
+OVERLAP_PROJECT = Path(__file__).resolve().parent / "analytics" / "ark_overlap"
 
 
 def field(row: dict[str, str], *names: str) -> str:
@@ -106,24 +112,43 @@ def build_changes(previous: dict | None, current: dict) -> dict:
 
 def build_overlap(current: dict) -> dict:
     per_fund = holdings_by_fund(current)
-    fund_securities = {fund: set(per_fund.get(fund, {})) for fund in FUNDS}
-    securities: dict[str, set[str]] = {}
-    for fund, rows in per_fund.items():
-        for key in rows:
-            securities.setdefault(key, set()).add(fund)
+    holdings = [(fund, key) for fund, securities in per_fund.items() for key in securities]
+    with TemporaryDirectory(prefix="ark-overlap-") as tmp:
+        run_dir = Path(tmp)
+        database = run_dir / "overlap.duckdb"
+        with duckdb.connect(str(database)) as db:
+            db.execute("create schema raw")
+            db.execute("create table raw.funds (fund varchar not null)")
+            db.executemany("insert into raw.funds values (?)", [(fund,) for fund in FUNDS])
+            db.execute("create table raw.holdings (fund varchar not null, security varchar not null)")
+            if holdings:
+                db.executemany("insert into raw.holdings values (?, ?)", holdings)
+
+        subprocess.run(
+            [
+                "dbt", "--log-path", str(run_dir / "logs"), "--no-use-colors", "build",
+                "--project-dir", str(OVERLAP_PROJECT), "--profiles-dir", str(OVERLAP_PROJECT),
+                "--target-path", str(run_dir / "target"),
+            ],
+            check=True,
+            env={**os.environ, "ARK_OVERLAP_DB": str(database), "DBT_SEND_ANONYMOUS_USAGE_STATS": "false"},
+        )
+
+        with duckdb.connect(str(database), read_only=True) as db:
+            shared_rows = db.execute(
+                "select security, funds, fund_count from main.ark_shared_holdings "
+                "order by fund_count desc, security"
+            ).fetchall()
+            pair_rows = db.execute(
+                "select left_fund, right_fund, shared_count from main.ark_overlap_matrix"
+            ).fetchall()
+
     shared = [
-        {"security": key, "funds": sorted(funds), "fund_count": len(funds)}
-        for key, funds in securities.items()
-        if len(funds) > 1
+        {"security": security, "funds": funds, "fund_count": count}
+        for security, funds, count in shared_rows
     ]
-    shared.sort(key=lambda row: (-row["fund_count"], row["security"]))
-    matrix = {
-        fund: {
-            other: len(fund_securities[fund] & fund_securities[other])
-            for other in FUNDS
-        }
-        for fund in FUNDS
-    }
+    pair_counts = {(left, right): count for left, right, count in pair_rows}
+    matrix = {left: {right: pair_counts[left, right] for right in FUNDS} for left in FUNDS}
     return {
         "as_of": current["snapshots"][0]["as_of"],
         "shared_holdings": shared,

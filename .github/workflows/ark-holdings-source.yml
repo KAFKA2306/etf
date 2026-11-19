@@ -6,6 +6,8 @@ on:
     paths:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
+      - 'analytics/ark_overlap/**'
+      - 'requirements-ark-views.txt'
       - 'test_ark_holdings.py'
       - 'tests/test_pages_ui.py'
       - 'docs/index.html'
@@ -14,6 +16,8 @@ on:
     paths:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
+      - 'analytics/ark_overlap/**'
+      - 'requirements-ark-views.txt'
       - 'test_ark_holdings.py'
       - 'tests/test_pages_ui.py'
       - 'docs/index.html'
@@ -35,6 +39,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install ARK view dependencies
+        run: python -m pip install -r requirements-ark-views.txt
       - name: Unit tests
         run: |
           python -m unittest -v test_ark_holdings.py

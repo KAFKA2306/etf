@@ -1,0 +1,8 @@
+ark_overlap:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('ARK_OVERLAP_DB') }}"
+      schema: main
+      threads: 1
