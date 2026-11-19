@@ -55,10 +55,11 @@ data/ark-holdings/YYYY-MM-DD/<source-fingerprint>.json
 再生成:
 
 ```bash
+python -m pip install -r requirements-ark-views.txt
 python build_ark_views.py
 ```
 
-raw snapshotから決定的に再生成します。
+raw snapshotから決定的に再生成します。Overlapの集計は[ARK overlapの定義とdbtモデル](analytics/ark_overlap/index.md)を参照してください。このフォルダはObsidianでVaultとして開けます。
 
 ## 自動取得
 
@@ -77,6 +78,8 @@ official ARK CSV
 同じ公式CSVを再取得しただけならcommitしません。6 fundのas-ofが一致しない場合は保存せず失敗します。
 
 ## 検証
+
+上記の依存パッケージをインストールしてから実行します。
 
 ```bash
 python -m unittest -v test_ark_holdings.py
