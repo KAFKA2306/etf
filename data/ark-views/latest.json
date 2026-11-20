@@ -1,33 +1,11 @@
 {
-  "as_of": "11/19/2026",
-  "snapshot_count": 42,
+  "as_of": "11/20/2026",
+  "snapshot_count": 43,
   "funds": {
     "ARKK": {
-      "row_count": 43,
+      "row_count": 44,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv",
-      "source_sha256": "908b07eecced2538a27078682febe88c87e0bef69ef3a78610548f454aabdb34",
-      "audit": {
-        "weight_total": 99.99,
-        "duplicate_identity_count": 0,
-        "missing_identity_count": 0,
-        "missing_weight_count": 0
-      }
-    },
-    "ARKQ": {
-      "row_count": 37,
-      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",
-      "source_sha256": "b1e2ceab9f9e24315181c2dcb25859f480e1b6e2ca02524b591be3ddc615aaf8",
-      "audit": {
-        "weight_total": 100.02,
-        "duplicate_identity_count": 0,
-        "missing_identity_count": 0,
-        "missing_weight_count": 0
-      }
-    },
-    "ARKW": {
-      "row_count": 41,
-      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",
-      "source_sha256": "204c837ab715b0ff14d88b21c7fb7941997a8d0344637f6d35bb5d1316581d4b",
+      "source_sha256": "3fd2faaf72c606d7f9a1dc25f78fc1224837e52076ef782946c2f7f695bd8e2b",
       "audit": {
         "weight_total": 100.0,
         "duplicate_identity_count": 0,
@@ -35,10 +13,21 @@
         "missing_weight_count": 0
       }
     },
-    "ARKG": {
-      "row_count": 34,
-      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",
-      "source_sha256": "879fef21a0aa05af9f9d7fd3d47eaaa2267c3ccde7d7184e779f5431bd13e713",
+    "ARKQ": {
+      "row_count": 38,
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",
+      "source_sha256": "cd190686ab19a443c5f03ba8ca548441df97529a070da2423ed98f5b5a0765f5",
+      "audit": {
+        "weight_total": 100.04,
+        "duplicate_identity_count": 0,
+        "missing_identity_count": 0,
+        "missing_weight_count": 0
+      }
+    },
+    "ARKW": {
+      "row_count": 42,
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",
+      "source_sha256": "535fb7b7c37cf84c558f1b061c0229c111f7c935d85a8fb5adbd2184c67e1a55",
       "audit": {
         "weight_total": 100.02,
         "duplicate_identity_count": 0,
@@ -46,10 +35,21 @@
         "missing_weight_count": 0
       }
     },
+    "ARKG": {
+      "row_count": 35,
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",
+      "source_sha256": "f2cd6542bf2e68e067773737c2eb2f19cab72129f8a61d3e762d51d6e858a023",
+      "audit": {
+        "weight_total": 100.01,
+        "duplicate_identity_count": 0,
+        "missing_identity_count": 0,
+        "missing_weight_count": 0
+      }
+    },
     "ARKF": {
-      "row_count": 39,
+      "row_count": 40,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_BLOCKCHAIN_&_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv",
-      "source_sha256": "d36dee1508bfa8438e9efdbb8c54bf84427a610b175a061ef9cc46aaf28aefaa",
+      "source_sha256": "b4f28cab8b3f9dc4271392ccb9802cc1c8746a4caf257057aae3aee4fa133a3e",
       "audit": {
         "weight_total": 100.01,
         "duplicate_identity_count": 0,
@@ -58,11 +58,11 @@
       }
     },
     "ARKX": {
-      "row_count": 32,
+      "row_count": 33,
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",
-      "source_sha256": "c4aec5d3141e459e31199583cf5a3e9e766c17bb89af94921638389975874bbd",
+      "source_sha256": "4e183bcbc6a6694fd30a639e71d1009fb6fd438eb686b5a1ec9b791d8d309e0b",
       "audit": {
-        "weight_total": 100.0,
+        "weight_total": 100.06,
         "duplicate_identity_count": 0,
         "missing_identity_count": 0,
         "missing_weight_count": 0

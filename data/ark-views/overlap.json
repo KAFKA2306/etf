@@ -1,6 +1,18 @@
 {
-  "as_of": "11/19/2026",
+  "as_of": "11/20/2026",
   "shared_holdings": [
+    {
+      "security": "03703U107",
+      "funds": [
+        "ARKF",
+        "ARKG",
+        "ARKK",
+        "ARKQ",
+        "ARKW",
+        "ARKX"
+      ],
+      "fund_count": 6
+    },
     {
       "security": "X9USDGSFT",
       "funds": [
@@ -535,52 +547,52 @@
   ],
   "matrix": {
     "ARKK": {
-      "ARKK": 43,
-      "ARKQ": 14,
-      "ARKW": 23,
-      "ARKG": 14,
-      "ARKF": 18,
-      "ARKX": 14
+      "ARKK": 44,
+      "ARKQ": 15,
+      "ARKW": 24,
+      "ARKG": 15,
+      "ARKF": 19,
+      "ARKX": 15
     },
     "ARKQ": {
-      "ARKK": 14,
-      "ARKQ": 37,
-      "ARKW": 11,
-      "ARKG": 1,
-      "ARKF": 6,
-      "ARKX": 24
+      "ARKK": 15,
+      "ARKQ": 38,
+      "ARKW": 12,
+      "ARKG": 2,
+      "ARKF": 7,
+      "ARKX": 25
     },
     "ARKW": {
-      "ARKK": 23,
-      "ARKQ": 11,
-      "ARKW": 41,
-      "ARKG": 1,
-      "ARKF": 26,
-      "ARKX": 10
+      "ARKK": 24,
+      "ARKQ": 12,
+      "ARKW": 42,
+      "ARKG": 2,
+      "ARKF": 27,
+      "ARKX": 11
     },
     "ARKG": {
-      "ARKK": 14,
-      "ARKQ": 1,
-      "ARKW": 1,
-      "ARKG": 34,
-      "ARKF": 1,
-      "ARKX": 1
+      "ARKK": 15,
+      "ARKQ": 2,
+      "ARKW": 2,
+      "ARKG": 35,
+      "ARKF": 2,
+      "ARKX": 2
     },
     "ARKF": {
-      "ARKK": 18,
-      "ARKQ": 6,
-      "ARKW": 26,
-      "ARKG": 1,
-      "ARKF": 39,
-      "ARKX": 6
+      "ARKK": 19,
+      "ARKQ": 7,
+      "ARKW": 27,
+      "ARKG": 2,
+      "ARKF": 40,
+      "ARKX": 7
     },
     "ARKX": {
-      "ARKK": 14,
-      "ARKQ": 24,
-      "ARKW": 10,
-      "ARKG": 1,
-      "ARKF": 6,
-      "ARKX": 32
+      "ARKK": 15,
+      "ARKQ": 25,
+      "ARKW": 11,
+      "ARKG": 2,
+      "ARKF": 7,
+      "ARKX": 33
     }
   }
 }
