@@ -17,7 +17,9 @@ tags:
 - 配布記録: `data/ark-views/holdings-latest.manifest.json`（観測日、原本SHA-256、出典URL、件数、バイナリSHA-256）
 - 公開: `https://kafka2306.github.io/etf/data/holdings-latest.parquet`（Pagesに配布された場合）
 
-Parquetの1行は「1観測日 × 1ファンド × 1保有銘柄」。最新の6ファンドだけを含む。過去の訂正・原本は既存のJSONに残す。元ファイルが変わらなければ生成・コミットを省略する。
+Parquetの1行は「1観測日 × 1ファンド × 1保有銘柄」。最新の6ファンドだけを含む。過去の訂正・原本は既存のJSONに残す。
+
+**実測（2026-11-20観測分）**: 6ファンド・232行・9,030バイト。対応する原本スナップショットは78,609バイト。Parquetは保有銘柄の表示用列へ絞っているため、これは圧縮率ではなく配布バイト数の比較。GitHubへの反映は [Parquet派生データ](../data/ark-views/holdings-latest.manifest.json) のSHA-256で確認する。元ファイルが変わらなければ生成・コミットを省略する。
 
 ## 実行
 
