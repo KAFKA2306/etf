@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: ark_snapshot
+    schema: raw
+    tables:
+      - name: holdings
+        description: "Rows selected from the latest complete six-fund ARK source snapshot."
+
+models:
+  - name: ark_holdings_latest
+    description: "Derived, compressed latest holdings view; not a replacement for append-only raw snapshots."
+    data_tests:
+      - unique:
+          arguments:
+            column_name: "fund || ':' || security"
+    columns:
+      - name: as_of
+        data_tests: [not_null]
+      - name: fund
+        data_tests: [not_null]
+      - name: security
+        data_tests: [not_null]
+      - name: weight_pct
+        data_tests: [not_null]
+      - name: source_sha256
+        data_tests: [not_null]
+      - name: source_csv_url
+        data_tests: [not_null]

@@ -7,7 +7,10 @@ on:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
       - 'analytics/ark_overlap/**'
+      - 'analytics/ark_parquet/**'
       - 'requirements-ark-views.txt'
+      - 'scripts/build_ark_parquet.py'
+      - 'tests/test_ark_parquet.py'
       - 'test_ark_holdings.py'
       - 'tests/test_pages_ui.py'
       - 'docs/index.html'
@@ -18,6 +21,8 @@ on:
       - 'build_ark_views.py'
       - 'analytics/ark_overlap/**'
       - 'requirements-ark-views.txt'
+      - 'scripts/build_ark_parquet.py'
+      - 'tests/test_ark_parquet.py'
       - 'test_ark_holdings.py'
       - 'tests/test_pages_ui.py'
       - 'docs/index.html'
@@ -45,6 +50,7 @@ jobs:
         run: |
           python -m unittest -v test_ark_holdings.py
           python -m unittest -v tests/test_pages_ui.py
+          python -m unittest -v tests.test_ark_parquet
       - name: Verify official ARK sources
         if: github.event_name == 'pull_request'
         run: python collect_ark_holdings.py --output-dir /tmp/ark-holdings
@@ -65,11 +71,13 @@ jobs:
           assert readiness['complete']
           print(readiness)
           PY
+          python scripts/build_ark_parquet.py --output-dir /tmp/ark-parquet
       - name: Store official holdings and build views
         if: github.event_name != 'pull_request'
         run: |
           python collect_ark_holdings.py
           python build_ark_views.py
+          python scripts/build_ark_parquet.py
       - name: Commit new snapshot
         if: github.event_name != 'pull_request'
         run: |
