@@ -41,7 +41,8 @@ def transform_digest() -> str:
     )
     h = hashlib.sha256()
     for path in inputs:
-        h.update(path.relative_to(ROOT).as_posix().encode("utf-8") + b"\0")
+        source_name = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.name
+        h.update(source_name.encode("utf-8") + b"\0")
         h.update(path.read_bytes())
         h.update(b"\0")
     return h.hexdigest()
