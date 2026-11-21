@@ -49,6 +49,20 @@ class ParquetInputTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate holding identity"):
             snapshot_rows(payload)
 
+
+    def test_holding_date_must_match_snapshot_date(self):
+        payload = self.sample()
+        payload["snapshots"][0]["holdings"][0]["date"] = "11/19/2026"
+        with self.assertRaisesRegex(ValueError, "mixed as_of in holding row"):
+            snapshot_rows(payload)
+
+    def test_transform_version_is_tracked_for_rebuilds(self):
+        from build_ark_parquet import transform_digest
+
+        digest = transform_digest()
+        self.assertEqual(len(digest), 64)
+        self.assertTrue(all(c in "0123456789abcdef" for c in digest))
+
     def test_missing_numeric_not_zero(self):
         payload = self.sample()
         payload["snapshots"][0]["holdings"][0]["weight (%)"] = ""
