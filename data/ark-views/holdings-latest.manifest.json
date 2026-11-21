@@ -41,5 +41,6 @@
     }
   ],
   "source_snapshot": "data/ark-holdings/2026-11-20/7cef5d568a67f19a.json",
-  "source_snapshot_sha256": "4e14da801ad51ed2eff2f58e7bd343f178b06eaadd0b2769de6f694cc3b409ff"
+  "source_snapshot_sha256": "4e14da801ad51ed2eff2f58e7bd343f178b06eaadd0b2769de6f694cc3b409ff",
+  "transform_sha256": "4be0ab56ff9741372cb52c54411be747a5a08f48aa5d234db8ee42bbb0a3aba8"
 }
