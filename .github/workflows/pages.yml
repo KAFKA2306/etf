@@ -34,10 +34,31 @@ jobs:
           mkdir -p docs/data
           cp data/ark-views/latest.json docs/data/latest.json
           cp data/ark-views/changes.json docs/data/changes.json
-          if test -f data/ark-views/holdings-latest.parquet && test -f data/ark-views/holdings-latest.manifest.json; then
-            cp data/ark-views/holdings-latest.parquet docs/data/holdings-latest.parquet
-            cp data/ark-views/holdings-latest.manifest.json docs/data/holdings-latest.manifest.json
-          fi
+          # Both artifacts are required. Never report a successful Pages release
+          # while omitting the Parquet output or its provenance manifest.
+          cp data/ark-views/holdings-latest.parquet docs/data/holdings-latest.parquet
+          cp data/ark-views/holdings-latest.manifest.json docs/data/holdings-latest.manifest.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          data = Path("docs/data")
+          manifest = json.loads((data / "holdings-latest.manifest.json").read_text())
+          output = data / manifest["parquet"]
+          if not output.is_file():
+              raise SystemExit("Parquet absent from Pages artifact")
+          if len(output.read_bytes()) != manifest["parquet_bytes"]:
+              raise SystemExit("Parquet size disagrees with provenance manifest")
+          if hashlib.sha256(output.read_bytes()).hexdigest() != manifest["parquet_sha256"]:
+              raise SystemExit("Parquet digest disagrees with provenance manifest")
+          source = Path(manifest["source_snapshot"])
+          if hashlib.sha256(source.read_bytes()).hexdigest() != manifest["source_snapshot_sha256"]:
+              raise SystemExit("canonical ARK JSON digest disagrees with manifest")
+          if manifest["record_count"] < 1 or manifest["fund_count"] != 6:
+              raise SystemExit("invalid ETF Parquet record/fund count")
+          print(f"VERIFIED: {manifest['record_count']} holdings / {manifest['parquet_bytes']} bytes / {manifest['as_of']}")
+          PY
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
