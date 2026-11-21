@@ -11,6 +11,15 @@ class PagesUiTest(unittest.TestCase):
         self.assertIn('target="_blank" rel="noopener noreferrer"', html)
         self.assertIn("公式CSV: unavailable", html)
 
+    def test_parquet_download_has_provenance_and_deploy_fails_closed(self):
+        html = Path("docs/index.html").read_text(encoding="utf-8")
+        workflow = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
+        self.assertIn('./data/holdings-latest.parquet', html)
+        self.assertIn('./data/holdings-latest.manifest.json', html)
+        self.assertIn('cp data/ark-views/holdings-latest.parquet', workflow)
+        self.assertIn('cp data/ark-views/holdings-latest.manifest.json', workflow)
+        self.assertIn('manifest["parquet_sha256"]', workflow)
+
     def test_ark_pages_surfaces_canonical_daily_change_context(self):
         html = Path("docs/index.html").read_text(encoding="utf-8")
         workflow = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
