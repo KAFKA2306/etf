@@ -49,6 +49,27 @@ class ParquetInputTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "duplicate holding identity"):
             snapshot_rows(payload)
 
+
+    def test_holding_date_must_match_snapshot_date(self):
+        payload = self.sample()
+        payload["snapshots"][0]["holdings"][0]["date"] = "11/19/2026"
+        with self.assertRaisesRegex(ValueError, "mixed as_of in holding row"):
+            snapshot_rows(payload)
+
+    def test_sql_change_invalidates_cached_parquet(self):
+        from tempfile import TemporaryDirectory
+        from unittest.mock import patch
+        import build_ark_parquet
+
+        with TemporaryDirectory() as directory:
+            model = Path(directory) / "model.sql"
+            model.write_text("select 1", encoding="utf-8")
+            with patch.object(build_ark_parquet, "MODEL_DIR", Path(directory)):
+                before = build_ark_parquet.transform_digest()
+                model.write_text("select 2", encoding="utf-8")
+                after = build_ark_parquet.transform_digest()
+        self.assertNotEqual(before, after)
+
     def test_missing_numeric_not_zero(self):
         payload = self.sample()
         payload["snapshots"][0]["holdings"][0]["weight (%)"] = ""

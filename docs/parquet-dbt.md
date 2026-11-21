@@ -14,7 +14,7 @@ tags:
 - 正本: `data/ark-holdings/YYYY-MM-DD/<fingerprint>.json`（訂正を含め追記保存）
 - 変換: `analytics/ark_parquet/models/`（dbt-duckdbで列型、重複、欠損、日付を検証）
 - 派生: `data/ark-views/holdings-latest.parquet`（ZSTD圧縮、最新時点の1ファイル）
-- 配布記録: `data/ark-views/holdings-latest.manifest.json`（観測日、原本SHA-256、出典URL、件数、バイナリSHA-256）
+- 配布記録: `data/ark-views/holdings-latest.manifest.json`（観測日、原本SHA-256、変換コードSHA-256、出典URL、件数、バイナリSHA-256）
 - 公開: `https://kafka2306.github.io/etf/data/holdings-latest.parquet`（Pagesに配布された場合）
 
 Parquetの1行は「1観測日 × 1ファンド × 1保有銘柄」。最新の6ファンドだけを含む。過去の訂正・原本は既存のJSONに残す。
@@ -57,3 +57,9 @@ print(db.execute("select fund, count(*), sum(weight_pct) from read_parquet(?) gr
 - [dbt-duckdb external materialization](https://github.com/duckdb/dbt-duckdb#reading-and-writing-external-files)
 - [DuckDB Parquet](https://duckdb.org/docs/stable/data/parquet/overview)
 - [GitHub repository limits](https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits)
+
+## 配布の合否
+
+PagesのビルドはParquetとmanifestの両方を必須として、配布前にSHA-256・容量・原本SHAを検証する。1つでも欠ければデプロイしない。ファイルがGitHub mainにあることと公開URLでHTTP取得できることは別の事象なので、リリース確認では公開先も別途照合する。
+
+変換スクリプト・dbt SQL/YAMLのいずれかが変更された場合は、原本に変更がなくても新しい変換版として生成・検証する。原本と変換版が同一なら不要な再変換を避ける。

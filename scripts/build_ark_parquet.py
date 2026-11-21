@@ -33,6 +33,21 @@ def snapshot_date(value: str) -> str:
     return datetime.strptime(value, "%m/%d/%Y").date().isoformat()
 
 
+def transform_digest() -> str:
+    """Rebuild when the published dbt/normalizer contract changes, even if raw is unchanged."""
+    inputs = [Path(__file__)] + sorted(
+        path for path in MODEL_DIR.rglob("*")
+        if path.is_file() and path.suffix in {".sql", ".yml"}
+    )
+    h = hashlib.sha256()
+    for path in inputs:
+        source_name = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else path.name
+        h.update(source_name.encode("utf-8") + b"\0")
+        h.update(path.read_bytes())
+        h.update(b"\0")
+    return h.hexdigest()
+
+
 def select_current(root: Path) -> tuple[Path, dict]:
     """Use the latest as-of date, and the latest retrieval for corrected days."""
     candidates: list[tuple[str, str, Path, dict]] = []
@@ -89,6 +104,9 @@ def snapshot_rows(payload: dict) -> list[tuple]:
         if len(holdings) != snap.get("row_count"):
             raise ValueError(f"{fund}: declared row count mismatch")
         for row in holdings:
+            row_date = row.get("date") or row.get("Date")
+            if row_date and snapshot_date(str(row_date)) != as_of:
+                raise ValueError(f"{fund}: mixed as_of in holding row ({row_date})")
             security = (row.get("cusip") or row.get("ticker") or row.get("company") or "").strip()
             company = (row.get("company") or "").strip()
             if not security or not company or security in seen:
@@ -117,12 +135,14 @@ def build(source_dir: Path, output_dir: Path, *, force: bool = False) -> dict:
     source_path, payload = select_current(source_dir)
     rows = snapshot_rows(payload)
     source_hash = digest(source_path)
+    model_hash = transform_digest()
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / NAME
     metadata = output_dir / MANIFEST
     if target.is_file() and metadata.is_file() and not force:
         previous = json.loads(metadata.read_text(encoding="utf-8"))
         if (previous.get("source_snapshot_sha256") == source_hash
+                and previous.get("transform_sha256") == model_hash
                 and previous.get("parquet_sha256") == digest(target)
                 and previous.get("record_count") == len(rows)):
             return previous  # No fresh binary, no duplicate Git commit.
@@ -183,6 +203,7 @@ def build(source_dir: Path, output_dir: Path, *, force: bool = False) -> dict:
         "fund_count": len(FUNDS),
         "source_snapshot": str(source_path.relative_to(ROOT)) if source_path.is_relative_to(ROOT) else str(source_path),
         "source_snapshot_sha256": source_hash,
+        "transform_sha256": model_hash,
         "parquet": NAME,
         "parquet_bytes": target.stat().st_size,
         "parquet_sha256": digest(target),
