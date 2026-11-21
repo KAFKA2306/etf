@@ -63,3 +63,9 @@ print(db.execute("select fund, count(*), sum(weight_pct) from read_parquet(?) gr
 PagesのビルドはParquetとmanifestの両方を必須として、配布前にSHA-256・容量・原本SHAを検証する。1つでも欠ければデプロイしない。ファイルがGitHub mainにあることと公開URLでHTTP取得できることは別の事象なので、リリース確認では公開先も別途照合する。
 
 変換スクリプト・dbt SQL/YAMLのいずれかが変更された場合は、原本に変更がなくても新しい変換版として生成・検証する。原本と変換版が同一なら不要な再変換を避ける。
+
+### 日次更新と公開の連動
+
+GitHub Actionsの`GITHUB_TOKEN`でコミットした更新は、別ワークフローの`push`を起動しない。ARK取得ジョブで原本またはParquetの変更がコミットされた場合だけ、同じ既存Pagesワークフローを`workflow_dispatch`で明示起動する。変更がない日は起動しない。
+
+出典: [GitHub公式 GITHUB_TOKENとworkflow実行](https://docs.github.com/en/actions/concepts/security/github_token)。本番の合否はPagesがアップロードしたという記録ではなく、デプロイ後のHTTPでParquetとmanifestを再取得してSHA-256を比較する。
