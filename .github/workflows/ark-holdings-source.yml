@@ -33,6 +33,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
   issues: write
 
@@ -80,6 +81,7 @@ jobs:
           python build_ark_views.py
           python scripts/build_ark_parquet.py
       - name: Commit new snapshot
+        id: persist
         if: github.event_name != 'pull_request'
         run: |
           if test -z "$(git status --porcelain -- data/ark-holdings data/ark-views)"; then
@@ -91,6 +93,16 @@ jobs:
           git add data/ark-holdings data/ark-views
           git commit -m 'data: snapshot ARK ETF holdings'
           git push
+          echo 'updated=true' >> "$GITHUB_OUTPUT"
+
+      # A GITHUB_TOKEN git push does NOT trigger another workflow's push event.
+      # The documented exception is an explicit workflow_dispatch.
+      - name: Publish updated ARK Parquet and views
+        if: github.event_name != 'pull_request' && steps.persist.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
+
       - name: Close Issue 9 after deterministic machine acceptance
         if: github.event_name != 'pull_request'
         env:
