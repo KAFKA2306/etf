@@ -20,6 +20,7 @@ on:
       - 'collect_ark_holdings.py'
       - 'build_ark_views.py'
       - 'analytics/ark_overlap/**'
+      - 'analytics/ark_parquet/**'
       - 'requirements-ark-views.txt'
       - 'scripts/build_ark_parquet.py'
       - 'tests/test_ark_parquet.py'
