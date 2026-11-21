@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-11-20",
+  "compression": "zstd",
+  "fund_count": 6,
+  "kind": "derived-not-authoritative",
+  "parquet": "holdings-latest.parquet",
+  "parquet_bytes": 9030,
+  "parquet_sha256": "54f3ea24b9b3bc39f6a39f6a68b3c449f8603082b3949d9f76e7f93d0ce7849c",
+  "record_count": 232,
+  "schema_version": "ark-holdings-parquet.v1",
+  "source_funds": [
+    {
+      "fund": "ARKF",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_BLOCKCHAIN_&_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv",
+      "source_sha256": "b4f28cab8b3f9dc4271392ccb9802cc1c8746a4caf257057aae3aee4fa133a3e"
+    },
+    {
+      "fund": "ARKG",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",
+      "source_sha256": "f2cd6542bf2e68e067773737c2eb2f19cab72129f8a61d3e762d51d6e858a023"
+    },
+    {
+      "fund": "ARKK",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv",
+      "source_sha256": "3fd2faaf72c606d7f9a1dc25f78fc1224837e52076ef782946c2f7f695bd8e2b"
+    },
+    {
+      "fund": "ARKQ",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",
+      "source_sha256": "cd190686ab19a443c5f03ba8ca548441df97529a070da2423ed98f5b5a0765f5"
+    },
+    {
+      "fund": "ARKW",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",
+      "source_sha256": "535fb7b7c37cf84c558f1b061c0229c111f7c935d85a8fb5adbd2184c67e1a55"
+    },
+    {
+      "fund": "ARKX",
+      "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",
+      "source_sha256": "4e183bcbc6a6694fd30a639e71d1009fb6fd438eb686b5a1ec9b791d8d309e0b"
+    }
+  ],
+  "source_snapshot": "data/ark-holdings/2026-11-20/7cef5d568a67f19a.json",
+  "source_snapshot_sha256": "4e14da801ad51ed2eff2f58e7bd343f178b06eaadd0b2769de6f694cc3b409ff"
+}
