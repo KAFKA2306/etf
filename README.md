@@ -51,6 +51,7 @@ data/ark-holdings/YYYY-MM-DD/<source-fingerprint>.json
 - [`data/ark-views/latest.json`](data/ark-views/latest.json): 最新snapshotとsource metadata
 - [`data/ark-views/changes.json`](data/ark-views/changes.json): 前回比の追加・削除・weight変化
 - [`data/ark-views/overlap.json`](data/ark-views/overlap.json): 複数fundに共通するholding
+- [Parquet + dbt](docs/parquet-dbt.md): 同じraw snapshotの最新6ファンドをZSTD圧縮し、dbtのSQL/テストで再現・検証する（`data/ark-views/holdings-latest.parquet`）。取得できない属性を補完しない
 
 再生成:
 

@@ -1,0 +1,6 @@
+name: ark_parquet
+version: "1.0.0"
+config-version: 2
+profile: ark_parquet
+model-paths: ["models"]
+clean-targets: ["target", "dbt_packages", "logs"]

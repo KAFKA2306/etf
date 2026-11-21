@@ -34,6 +34,10 @@ jobs:
           mkdir -p docs/data
           cp data/ark-views/latest.json docs/data/latest.json
           cp data/ark-views/changes.json docs/data/changes.json
+          if test -f data/ark-views/holdings-latest.parquet && test -f data/ark-views/holdings-latest.manifest.json; then
+            cp data/ark-views/holdings-latest.parquet docs/data/holdings-latest.parquet
+            cp data/ark-views/holdings-latest.manifest.json docs/data/holdings-latest.manifest.json
+          fi
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6

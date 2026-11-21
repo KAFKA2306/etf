@@ -1,0 +1,8 @@
+ark_parquet:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('ARK_PARQUET_DB') }}"
+      schema: main
+      threads: 1
