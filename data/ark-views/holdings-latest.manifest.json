@@ -1,46 +1,46 @@
 {
-  "as_of": "2026-11-20",
+  "as_of": "2026-11-24",
   "compression": "zstd",
   "fund_count": 6,
   "kind": "derived-not-authoritative",
   "parquet": "holdings-latest.parquet",
-  "parquet_bytes": 9030,
-  "parquet_sha256": "54f3ea24b9b3bc39f6a39f6a68b3c449f8603082b3949d9f76e7f93d0ce7849c",
+  "parquet_bytes": 8821,
+  "parquet_sha256": "68655dacc33855e144e42103d282e84fef122997b5ee1897e7c8fa35f9b8ca26",
   "record_count": 232,
   "schema_version": "ark-holdings-parquet.v1",
   "source_funds": [
     {
       "fund": "ARKF",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_BLOCKCHAIN_&_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv",
-      "source_sha256": "b4f28cab8b3f9dc4271392ccb9802cc1c8746a4caf257057aae3aee4fa133a3e"
+      "source_sha256": "b0719b17f98764f877e6f6f6f51b776706f52f0fd15146c42e771791e194a78e"
     },
     {
       "fund": "ARKG",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv",
-      "source_sha256": "f2cd6542bf2e68e067773737c2eb2f19cab72129f8a61d3e762d51d6e858a023"
+      "source_sha256": "dd6b84a765ccad1a6ae600f580ed8c319506d7cf0b90ab32e6ce3a90d9c99d19"
     },
     {
       "fund": "ARKK",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv",
-      "source_sha256": "3fd2faaf72c606d7f9a1dc25f78fc1224837e52076ef782946c2f7f695bd8e2b"
+      "source_sha256": "c8943f3ed1db4a9c4e9b9e99e14af642692bc6bee04d390a78de990cb9c0976e"
     },
     {
       "fund": "ARKQ",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv",
-      "source_sha256": "cd190686ab19a443c5f03ba8ca548441df97529a070da2423ed98f5b5a0765f5"
+      "source_sha256": "4a05e6d45b658388bf000ce6231a6b8799540efed78e0871bcbc18ad4af99cf8"
     },
     {
       "fund": "ARKW",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_NEXT_GENERATION_TECHNOLOGY_ETF_ARKW_HOLDINGS.csv",
-      "source_sha256": "535fb7b7c37cf84c558f1b061c0229c111f7c935d85a8fb5adbd2184c67e1a55"
+      "source_sha256": "3868d47dcb55fbfdf27a9eb5500634b0724c2b63b1fe9eaa11fe03477775e905"
     },
     {
       "fund": "ARKX",
       "source_csv_url": "https://assets.ark-funds.com/fund-documents/funds-etf-csv/ARK_SPACE_&_DEFENSE_INNOVATION_ETF_ARKX_HOLDINGS.csv",
-      "source_sha256": "4e183bcbc6a6694fd30a639e71d1009fb6fd438eb686b5a1ec9b791d8d309e0b"
+      "source_sha256": "3b18ce41607b216a8794db9b699281726e0267fb60aa84612c24cc3c7434fd48"
     }
   ],
-  "source_snapshot": "data/ark-holdings/2026-11-20/7cef5d568a67f19a.json",
-  "source_snapshot_sha256": "4e14da801ad51ed2eff2f58e7bd343f178b06eaadd0b2769de6f694cc3b409ff",
+  "source_snapshot": "data/ark-holdings/2026-11-24/1347c66165c649c5.json",
+  "source_snapshot_sha256": "e90d95cc5b4d139532dd4a0edfc6b2cf4069c3302c9a398e9e1b472bab2a24ba",
   "transform_sha256": "4be0ab56ff9741372cb52c54411be747a5a08f48aa5d234db8ee42bbb0a3aba8"
 }
